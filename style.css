@@ -206,3 +206,31 @@ h1, h2, h3 {
     text-align: center;
     padding: 1rem 0;
 }
+
+/* --- Social Proof (dark theme) --- */
+.section.light.proof,
+.proof {
+  /* dark panel that matches a slate theme */
+  background: #0b1220;              /* slate-900 */
+  border-top: 1px solid #1e293b;    /* slate-800 */
+  border-bottom: 1px solid #1e293b;
+  padding: 64px 0;
+}
+
+.proof__quote {
+  font-size: 1.25rem;               /* ~20px */
+  line-height: 1.6;
+  color: #e2e8f0;                   /* slate-200 */
+  font-style: italic;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.proof__author {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: #94a3b8;                   /* slate-400 */
+  text-align: center;
+}
+
