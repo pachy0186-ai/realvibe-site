@@ -136,14 +136,37 @@
     </section>
 
     <!-- Live Demo Section -->
-    <section id="demo" class="section light">
-        <div class="container">
-            <h2>Try the RealVibe Lead Qualifier</h2>
-            <p>Experience our AI‑powered lead qualifier in action. See how the chatbot collects detailed lead information, prioritizes prospects as hot, warm or cold, and provides clear next steps—all within seconds.</p>
-            <p>Click the button below to open a live demo of the RealVibe Lead Qualifier in a new tab.</p>
-            <a href="https://www.realvibeaimarketing.com" target="_blank" class="btn-primary">Launch Live Demo</a>
-        </div>
-    </section>
+   <section id="demo" class="section light">
+  <div class="container">
+    <h2>Try the RealVibe Lead Qualifier</h2>
+    <p>Experience our AI-powered lead qualifier in action. See how the chatbot collects detailed lead information, prioritizes prospects as hot, warm or cold, and provides clear next steps—all within seconds.</p>
+    <p>Click the button below to open a live demo of the RealVibe Lead Qualifier in a new tab.</p>
+
+    <a id="demoBtn"
+       href="https://www.realvibeaimarketing.com"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="btn-primary">
+      Launch Live Demo
+    </a>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var btn = document.getElementById('demoBtn');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = btn.getAttribute('href');
+      var w = window.open(url, '_blank', 'noopener');
+      // If a popup blocker prevents opening a new tab, navigate in the same tab instead.
+      if (!w || w.closed || typeof w.closed === 'undefined') {
+        window.location.href = url;
+      }
+    });
+  })();
+</script>
 
     <!-- About & Mission Section -->
     <section id="about" class="section light">
