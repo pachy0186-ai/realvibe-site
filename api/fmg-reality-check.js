@@ -7,9 +7,12 @@ export default async function handler(req, res) {
   }
 
   const supabaseUrl = process.env.SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  // Prefer the current Supabase secret-key convention, but keep the legacy
+  // variable name working so an existing deployment does not break.
+  const supabaseSecretKey =
+    process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!supabaseUrl || !serviceRoleKey) {
+  if (!supabaseUrl || !supabaseSecretKey) {
     return res.status(503).json({ error: "Response collection is not configured yet." });
   }
 
@@ -36,14 +39,22 @@ export default async function handler(req, res) {
       source: body.source || {},
     };
 
+    const headers = {
+      apikey: supabaseSecretKey,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal",
+    };
+
+    // Legacy service_role keys are JWTs and can also be used as the bearer
+    // token. Current sb_secret_* keys are intentionally not JWTs, so they
+    // should remain in the apikey header only.
+    if (!supabaseSecretKey.startsWith("sb_secret_")) {
+      headers.Authorization = `Bearer ${supabaseSecretKey}`;
+    }
+
     const upstream = await fetch(`${supabaseUrl}/rest/v1/fmg_reality_check_responses`, {
       method: "POST",
-      headers: {
-        apikey: serviceRoleKey,
-        Authorization: `Bearer ${serviceRoleKey}`,
-        "Content-Type": "application/json",
-        Prefer: "return=minimal",
-      },
+      headers,
       body: JSON.stringify(record),
     });
 
