@@ -1,19 +1,44 @@
 const MAX_BODY_BYTES = 120_000;
 
+function getSupabaseConfig() {
+  const url = (process.env.SUPABASE_URL || "").trim().replace(/\/+$/, "");
+  const key = (
+    process.env.SUPABASE_SECRET_KEY ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    ""
+  ).trim();
+  return { url, key };
+}
+
+function logFetchError(prefix, error) {
+  const cause = error?.cause || {};
+  console.error(prefix, {
+    message: error?.message || String(error),
+    name: error?.name,
+    causeCode: cause?.code,
+    causeMessage: cause?.message,
+    syscall: cause?.syscall,
+    hostname: cause?.hostname,
+  });
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL;
-  // Prefer the current Supabase secret-key convention, but keep the legacy
-  // variable name working so an existing deployment does not break.
-  const supabaseSecretKey =
-    process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const { url: supabaseUrl, key: supabaseSecretKey } = getSupabaseConfig();
 
   if (!supabaseUrl || !supabaseSecretKey) {
     return res.status(503).json({ error: "Response collection is not configured yet." });
+  }
+
+  try {
+    new URL(supabaseUrl);
+  } catch {
+    console.error("FMG Reality Check invalid SUPABASE_URL configuration");
+    return res.status(503).json({ error: "Response collection is not configured correctly." });
   }
 
   try {
@@ -45,9 +70,6 @@ export default async function handler(req, res) {
       Prefer: "return=minimal",
     };
 
-    // Legacy service_role keys are JWTs and can also be used as the bearer
-    // token. Current sb_secret_* keys are intentionally not JWTs, so they
-    // should remain in the apikey header only.
     if (!supabaseSecretKey.startsWith("sb_secret_")) {
       headers.Authorization = `Bearer ${supabaseSecretKey}`;
     }
@@ -66,7 +88,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ ok: true });
   } catch (error) {
-    console.error("FMG Reality Check submission error", error?.message || error);
+    logFetchError("FMG Reality Check submission error", error);
     return res.status(500).json({ error: "Unable to save response." });
   }
 }
