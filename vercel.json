@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/fmg-to-pharma/home.html",
+      "permanent": false
+    },
+    {
+      "source": "/fmg-to-pharma",
+      "destination": "/fmg-to-pharma/home.html",
+      "permanent": false
+    }
+  ]
+}
