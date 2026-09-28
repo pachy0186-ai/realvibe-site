@@ -22,6 +22,11 @@ create index if not exists fmg_reality_check_responses_interview_opt_in_idx
 
 alter table public.fmg_reality_check_responses enable row level security;
 
--- No public insert/select policy is intentionally created.
--- The Vercel serverless endpoint writes with SUPABASE_SERVICE_ROLE_KEY.
--- Keep that key server-side only; never expose it in the browser.
+-- Browser roles intentionally have no direct access. The Vercel serverless
+-- endpoint writes with the server-only service role or secret key.
+revoke all on table public.fmg_reality_check_responses from anon, authenticated;
+grant select, insert on table public.fmg_reality_check_responses to service_role;
+grant usage, select on sequence public.fmg_reality_check_responses_id_seq to service_role;
+
+-- No public RLS policy is intentionally created.
+-- Keep the server key out of browser code and public environment variables.
