@@ -37,18 +37,19 @@ Never expose the service-role key in browser code.
 
 Run `fmg-to-pharma/supabase.sql` in the Supabase SQL editor to create the response table.
 
-### Important before public launch
+### Submission behavior
 
-The current landing page is intentionally safe in preview mode if no submission endpoint is configured: it stores the response only in that visitor's browser. Before driving public traffic, wire `SUBMIT_ENDPOINT` in `index.html` to `/api/fmg-reality-check` (or set `window.FMG_SUBMIT_ENDPOINT` before the assessment script), then verify one real test response appears in Supabase.
+The assessment posts to `/api/fmg-reality-check` in production. In local browser-only previews, responses are stored on that device when no serverless endpoint is available. Keep the Supabase secret key server-side, and verify the health endpoint after any environment-variable or database change.
 
-## Suggested URL
+## Production deployment
 
-Deploy this folder at:
+FMG to Pharma is deployed as its own Vercel project at:
 
-`/fmg-to-pharma/`
+`https://fmg-to-pharma.vercel.app/`
 
-The existing RealVibe site can remain unchanged.
+The `fmg-to-pharma` directory now contains the static site, API routes, Vercel routing configuration, crawl files, and SEO setup notes needed to deploy it independently from the RealVibe site. Configure `SUPABASE_URL` and `SUPABASE_SECRET_KEY` (or the legacy `SUPABASE_SERVICE_ROLE_KEY`) only in the Vercel project's server-side environment variables.
 
 ## Research objective
 
 The immediate goal is not to sell the old $47/$250/$997/$2,997 ladder. The page is meant to answer a narrower question first: among U.S.-based, work-authorized FMGs seriously considering clinical research/pharma as a durable path, what repeated problem is urgent enough to act on and eventually pay to solve?
+
