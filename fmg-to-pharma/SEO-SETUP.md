@@ -7,7 +7,7 @@ The site includes canonical URLs, structured data, `robots.txt`, `sitemap.xml`, 
 1. Add `https://fmg-to-pharma.vercel.app/` as a URL-prefix property, or add the eventual custom domain as a Domain property.
 2. Use the HTML-tag verification method if DNS verification is not available. Place the exact verification meta tag in the `<head>` of `index.html`; do not use a placeholder value.
 3. Submit `https://fmg-to-pharma.vercel.app/sitemap.xml`.
-4. Inspect `/` and `/reality-check`, then request indexing after the production deployment is verified.
+4. Inspect `/`, `/reality-check`, `/guides/`, and the published cornerstone guide, then request indexing after the production deployment is verified.
 
 ## Bing Webmaster Tools
 
@@ -23,10 +23,14 @@ The site does not load analytics by default. The browser emits these non-sensiti
 - `reality_check_completed`
 - `strategy_call_clicked`
 - `assessment_saved`
+- `guide_hub_viewed`
+- `article_viewed`
 
 The completion event includes only the non-identifying result pattern and research-fit category. The save event includes only consent booleans. Assessment answers, names, and email addresses are not sent to the analytics layer.
 
-When a GA4 Measurement ID is available, add the standard Google tag once to `index.html` and `reality-check.html`, then map the existing data-layer events in Google Tag Manager or dispatch matching GA4 events. Apply an appropriate consent configuration before enabling advertising features.
+When a GA4 Measurement ID is available, add the standard Google tag once to the shared site pages and guide template, then map the existing data-layer events in Google Tag Manager or dispatch matching GA4 events. Apply an appropriate consent configuration before enabling advertising features.
+
+Guide pages use `/guides/guides.js`. Article-view events include only the published article slug. Reality Check CTA events include only page and source context; no names, email addresses, assessment answers, or query-string data are sent.
 
 ## Social preview image
 
@@ -43,4 +47,3 @@ After approval, save it as `og-fmg-to-pharma.jpg`, update the `og:image` and `tw
 ## Domain migration
 
 When a custom domain is connected, replace the `vercel.app` origin in canonical tags, Open Graph URLs, JSON-LD, `robots.txt`, and `sitemap.xml`. Keep one HTTPS hostname authoritative and configure a single permanent redirect from all alternate hostnames.
-
