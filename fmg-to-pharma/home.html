@@ -15,12 +15,14 @@
     @media(max-width:860px){.nav-links>a:not(.button){display:none}.hero{padding:75px 0 57px}.cards,.about-grid,.connect-grid{grid-template-columns:1fr}.section{padding:68px 0}.about-grid{gap:35px}.connect-grid{gap:25px}iframe{min-height:990px}}
     @media(max-width:580px){.wrap{width:min(100% - 28px,1120px)}.nav{min-height:65px}.nav .button{min-height:42px;padding:9px 13px;font-size:.78rem}.hero{padding:58px 0 46px}.hero h1{font-size:clamp(2.45rem,13vw,3.65rem)}.hero-actions{align-items:flex-start;flex-direction:column;gap:16px}.hero-actions .button{width:100%}.credibility{font-size:.8rem}.section{padding:55px 0}.card{min-height:auto;padding:24px}.assessment-intro{text-align:left}.frame-shell{margin-left:-7px;margin-right:-7px}iframe{min-height:1060px}.connect-links{flex-direction:column}.connect-link{justify-content:center}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}}
+    .brand-logo{display:block;position:relative;overflow:hidden;background:#f0ede7}.brand-logo img{position:absolute;width:263px;height:263px;max-width:none;left:-35px;top:-110px}.brand{width:190px;height:50px;flex:0 0 auto;text-decoration:none}.footer-logo{width:168px;height:44px;margin:0 0 20px}
+    @media(max-width:580px){.brand{width:156px;height:41px}.brand-logo img{width:216px;height:216px;left:-29px;top:-90px}.footer-logo{width:156px;height:41px}}
   </style>
 </head>
 <body>
   <header class="site-header">
     <nav class="wrap nav" aria-label="Primary navigation">
-      <a class="brand" href="#top">FMG TO PHARMA</a>
+      <a class="brand brand-logo" href="#top" aria-label="FMG to Pharma home"><img src="logo.png" alt="" /></a>
       <div class="nav-links">
         <a href="#assessment">Reality Check</a>
         <a href="#about">About</a>
@@ -111,6 +113,7 @@
 
   <footer class="site-footer">
     <div class="wrap footer-copy">
+      <a class="footer-logo brand-logo" href="#top" aria-label="FMG to Pharma home"><img src="logo.png" alt="" /></a>
       <p>FMG to Pharma provides educational career strategy and professional positioning resources for foreign-trained physicians exploring U.S. clinical research, pharma, biotech, and CRO careers.</p>
       <p class="fine-print">Career guidance does not guarantee interviews, job offers, sponsorship, or employment. FMG to Pharma does not provide legal or immigration advice.</p>
       <div class="footer-links" id="footerLinks"><a href="mailto:fmgtopharma@gmail.com">Email</a><a href="privacy.html">Privacy</a></div>
