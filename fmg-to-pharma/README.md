@@ -21,6 +21,8 @@ This folder contains the isolated FMG to Pharma research-beta landing page and e
 - No predetermined paid product pitch
 - Employer-neutral founder credibility language
 - No immigration or sponsorship promises
+- Scalable `/guides/` hub and shared editorial template
+- Published cornerstone guide for FMGs exploring careers beyond residency
 
 ## Response collection
 
@@ -52,4 +54,3 @@ The `fmg-to-pharma` directory now contains the static site, API routes, Vercel r
 ## Research objective
 
 The immediate goal is not to sell the old $47/$250/$997/$2,997 ladder. The page is meant to answer a narrower question first: among U.S.-based, work-authorized FMGs seriously considering clinical research/pharma as a durable path, what repeated problem is urgent enough to act on and eventually pay to solve?
-
