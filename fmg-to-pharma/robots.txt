@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /launch.html
+
+Sitemap: https://fmg-to-pharma.vercel.app/sitemap.xml
+

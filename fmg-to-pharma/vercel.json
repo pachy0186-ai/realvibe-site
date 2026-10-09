@@ -1,0 +1,47 @@
+{
+  "redirects": [
+    { "source": "/home.html", "destination": "/", "permanent": true },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/reality-check.html", "destination": "/reality-check", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
+    { "source": "/guides", "destination": "/guides/", "permanent": true },
+    { "source": "/guides/what-can-you-do-with-a-foreign-medical-degree-in-the-usa.html", "destination": "/guides/what-can-you-do-with-a-foreign-medical-degree-in-the-usa", "permanent": true },
+    { "source": "/launch.html", "destination": "/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/reality-check", "destination": "/reality-check.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/guides/", "destination": "/guides/index.html" },
+    { "source": "/guides/what-can-you-do-with-a-foreign-medical-degree-in-the-usa", "destination": "/guides/what-can-you-do-with-a-foreign-medical-degree-in-the-usa.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    },
+    {
+      "source": "/(logo.png|patricia-mieses.jpeg|favicon.svg)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=31536000, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/guides/(.*).(css|js)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=3600" }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ]
+}
