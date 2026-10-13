@@ -25,7 +25,13 @@
       ]
     },
     {
-      "source": "/(logo.png|patricia-mieses.jpeg|favicon.svg)",
+      "source": "/(logo.png|patricia-mieses.jpeg|favicon.svg|patricia-fmg-to-pharma-intro-poster.jpg)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=31536000, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/patricia-fmg-to-pharma-intro.mp4",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=31536000, stale-while-revalidate=86400" }
       ]
@@ -45,3 +51,4 @@
     }
   ]
 }
+

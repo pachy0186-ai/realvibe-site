@@ -25,6 +25,8 @@ The site does not load analytics by default. The browser emits these non-sensiti
 - `assessment_saved`
 - `guide_hub_viewed`
 - `article_viewed`
+- `founder_video_started`
+- `founder_video_completed`
 
 The completion event includes only the non-identifying result pattern and research-fit category. The save event includes only consent booleans. Assessment answers, names, and email addresses are not sent to the analytics layer.
 
@@ -47,3 +49,4 @@ After approval, save it as `og-fmg-to-pharma.jpg`, update the `og:image` and `tw
 ## Domain migration
 
 When a custom domain is connected, replace the `vercel.app` origin in canonical tags, Open Graph URLs, JSON-LD, `robots.txt`, and `sitemap.xml`. Keep one HTTPS hostname authoritative and configure a single permanent redirect from all alternate hostnames.
+
