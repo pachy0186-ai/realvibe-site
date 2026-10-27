@@ -39,6 +39,61 @@
       "source": "/launch.html",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/sample-report.html",
+      "destination": "/sample-report",
+      "permanent": true
+    },
+    {
+      "source": "/how-it-works.html",
+      "destination": "/how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/faq.html",
+      "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/job-intelligence",
+      "permanent": false
+    },
+    {
+      "source": "/services.html",
+      "destination": "/job-intelligence",
+      "permanent": false
+    },
+    {
+      "source": "/pricing",
+      "destination": "/job-intelligence#packages",
+      "permanent": false
+    },
+    {
+      "source": "/pricing.html",
+      "destination": "/job-intelligence#packages",
+      "permanent": false
+    },
+    {
+      "source": "/resources",
+      "destination": "/guides/",
+      "permanent": false
+    },
+    {
+      "source": "/resources.html",
+      "destination": "/guides/",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -61,6 +116,26 @@
     {
       "source": "/guides/what-can-you-do-with-a-foreign-medical-degree-in-the-usa",
       "destination": "/guides/what-can-you-do-with-a-foreign-medical-degree-in-the-usa.html"
+    },
+    {
+      "source": "/sample-report",
+      "destination": "/sample-report.html"
+    },
+    {
+      "source": "/how-it-works",
+      "destination": "/how-it-works.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/faq.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
     }
   ],
   "headers": [
@@ -128,7 +203,8 @@
   ],
   "git": {
     "deploymentEnabled": {
-      "codex/fmg-2-intelligence-validation": false
+      "codex/fmg-2-intelligence-validation": false,
+      "codex/fmg-2-pilot-preview-20261027": false
     }
   }
 }
