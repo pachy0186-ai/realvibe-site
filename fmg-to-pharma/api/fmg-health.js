@@ -29,8 +29,7 @@ export default async function handler(req, res) {
     );
 
     if (!upstream.ok) {
-      const detail = await upstream.text();
-      console.error("FMG Supabase health check failed", upstream.status, detail.slice(0, 300));
+      console.error("FMG Supabase health check failed", upstream.status);
       return res.status(502).json({
         ok: false,
         configured: true,
@@ -46,7 +45,7 @@ export default async function handler(req, res) {
       tableReady: true,
     });
   } catch (error) {
-    console.error("FMG health check error", error?.message || error);
+    console.error("FMG health check error", { name: error?.name });
     return res.status(500).json({ ok: false, configured: true, databaseReachable: false });
   }
 }
