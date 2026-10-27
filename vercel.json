@@ -5,5 +5,10 @@
       "destination": "/fmg-to-pharma/home.html",
       "permanent": false
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "codex/fmg-2-intelligence-validation": false
+    }
+  }
 }
