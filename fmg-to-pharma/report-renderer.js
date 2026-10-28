@@ -4,7 +4,8 @@ export function renderReport(host, draft) {
   const a = draft?.analysis; if (!a) return;
   const text = (tag, value, parent = host) => {const node = document.createElement(tag);node.textContent = String(value ?? '');parent.append(node);return node;};
   text('h2', `${a.target.company} · ${a.target.role}`);
-  text('p', `Prepared ${draft.researchedAt || 'date not supplied'} · ${draft.engineVersion || 'reviewed report'}`);
+  const prepared = new Date(draft.researchedAt);
+  text('p', Number.isNaN(prepared.getTime()) ? 'Research date requires confirmation.' : `Prepared ${new Intl.DateTimeFormat('en-US', {dateStyle: 'long', timeZone: 'UTC'}).format(prepared)}`);
   text('h3', 'Your next decision'); text('p', a.executive_verdict.summary);
   text('h3', 'Prioritized next actions');
   const actions = text('ol', '');
@@ -14,7 +15,9 @@ export function renderReport(host, draft) {
   text('h3', 'Your evidence against the requirements');
   for (const row of a.evidence_map) {
     const card = text('section', '');card.className = 'card';text('h4', row.driver, card);
-    for (const [label, value] of [['Your evidence', row.candidate_evidence], ['Coverage', row.strength], ['Gap', row.gap_type], ['Risk or uncertainty', row.risk], ['Next action', row.action]]) {
+    const coverage = {strong: 'Strong evidence', partial: 'Partial evidence', missing: 'Evidence not supplied'}[row.strength] || 'Needs review';
+    const gap = {none: 'No material gap identified', qualification_gap: 'Required qualifications not established', evidence_gap: 'Evidence needs clarification', language_gap: 'Make relevant experience clearer', seniority_gap: 'Ownership or seniority gap', perception_risk: 'A potential concern to address'}[row.gap_type] || 'Needs review';
+    for (const [label, value] of [['Your evidence', row.candidate_evidence], ['Coverage', coverage], ['Gap', gap], ['Risk or uncertainty', row.risk], ['Next action', row.action]]) {
       text('strong', label, card);text('p', value, card);
     }
   }
