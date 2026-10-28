@@ -1,6 +1,31 @@
 {
   "redirects": [
     {
+      "source": "/lib/:path*",
+      "destination": "/api/fmg-private-source",
+      "permanent": false
+    },
+    {
+      "source": "/node_modules/:path*",
+      "destination": "/api/fmg-private-source",
+      "permanent": false
+    },
+    {
+      "source": "/.env.example",
+      "destination": "/api/fmg-private-source",
+      "permanent": false
+    },
+    {
+      "source": "/package.json",
+      "destination": "/api/fmg-private-source",
+      "permanent": false
+    },
+    {
+      "source": "/package-lock.json",
+      "destination": "/api/fmg-private-source",
+      "permanent": false
+    },
+    {
       "source": "/home.html",
       "destination": "/",
       "permanent": true
@@ -107,26 +132,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/lib/:path*",
-      "destination": "/api/fmg-private-source"
-    },
-    {
-      "source": "/node_modules/:path*",
-      "destination": "/api/fmg-private-source"
-    },
-    {
-      "source": "/.env.example",
-      "destination": "/api/fmg-private-source"
-    },
-    {
-      "source": "/package.json",
-      "destination": "/api/fmg-private-source"
-    },
-    {
-      "source": "/package-lock.json",
-      "destination": "/api/fmg-private-source"
-    },
     {
       "source": "/job-intelligence",
       "destination": "/job-intelligence.html"
