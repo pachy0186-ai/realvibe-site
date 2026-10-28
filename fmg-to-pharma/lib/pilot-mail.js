@@ -34,6 +34,9 @@ export async function dispatchNotifications(store, id, {env, transport, now = ()
     try {
       const current = (await store.get(id)).order;
       const message = notification(current, item, {origin: env.FMG_PILOT_ORIGIN, founderEmail: env.FMG_FOUNDER_EMAIL});
+      // Orders retain fictional addresses. An explicitly approved QA mailbox can receive customer-template tests.
+      if (item.kind !== 'founder_paid' && env.FMG_EMAIL_TEST_CUSTOMER) message.to = env.FMG_EMAIL_TEST_CUSTOMER;
+      message.subject = `[SANDBOX TEST] ${message.subject}`;
       ensure(allowed.includes(message.to), 'Recipient is outside the approved test allowlist.');
       const messageId = `<${createHash('sha256').update(item.id).digest('hex')}@fmg-pilot.invalid>`;
       const info = await sender.sendMail({...message, from: env.FMG_EMAIL_FROM, messageId, disableFileAccess: true, disableUrlAccess: true});

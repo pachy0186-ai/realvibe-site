@@ -145,13 +145,15 @@ test('invalid mail configuration does not lease pending notifications', async ()
 test('notification rendering uses a local stream; failed sending is retryable and never leaks CVs', async () => {
   const ctx = await paidContext('application');
   const env = {...baseEnv, FMG_NOTIFICATION_MODE: 'smtp-test', FMG_EMAIL_TEST_APPROVED: 'true',
-    FMG_EMAIL_TEST_RECIPIENTS: 'candidate@example.invalid,founder@example.invalid', FMG_EMAIL_FROM: 'qa@example.invalid', FMG_FOUNDER_EMAIL: 'founder@example.invalid'};
-  const messages = [];
+    FMG_EMAIL_TEST_RECIPIENTS: 'approved-qa@example.invalid,founder@example.invalid', FMG_EMAIL_TEST_CUSTOMER: 'approved-qa@example.invalid', FMG_EMAIL_FROM: 'qa@example.invalid', FMG_FOUNDER_EMAIL: 'founder@example.invalid'};
+  const messages = [], subjects = [];
   const stream = nodemailer.createTransport({streamTransport: true, buffer: true, newline: 'unix'});
-  const transport = {async sendMail(message) {const info = await stream.sendMail(message);messages.push(info.message.toString());return info;}};
+  const transport = {async sendMail(message) {subjects.push(message.subject);const info = await stream.sendMail(message);messages.push(info.message.toString());return info;}};
   const results = await dispatchNotifications(ctx.store, ctx.id, {env, transport});
   assert.equal(results.length, 2);assert.ok(results.every(r => r.status === 'sent'));
   assert.ok(messages.every(m => m.includes('Subject:') && !m.includes(ctx.input.cv)));
+  assert.ok(messages.some(m => m.includes('To: approved-qa@example.invalid')));
+  assert.ok(subjects.every(subject => subject.startsWith('[SANDBOX TEST]')));
   assert.equal((await dispatchNotifications(ctx.store, ctx.id, {env, transport})).length, 0);
   const failing = await paidContext('application');
   const failure = await dispatchNotifications(failing.store, failing.id, {env, transport: {async sendMail() {throw Error('fake SMTP failure');}}});
