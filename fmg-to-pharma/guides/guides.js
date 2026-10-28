@@ -25,7 +25,7 @@
   if (document.body.dataset.videoResource === 'true') {
     trackFmgEvent('video_resource_viewed', { page_type: 'guide_article', article_slug: articleSlug });
     window.addEventListener('fmg:video-request', (event) => {
-      if (event.detail?.video_id !== 'iPMPtll-P3Q') return;
+      if (!['iPMPtll-P3Q', 'MRPkx_-6n1s'].includes(event.detail?.video_id)) return;
       trackFmgEvent('video_player_requested', {
         page_type: 'guide_article', article_slug: articleSlug, video_id: event.detail.video_id,
       });

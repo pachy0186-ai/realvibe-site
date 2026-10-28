@@ -27,12 +27,15 @@ test('existing guides retain their event contract; new resource requires optiona
   assert.equal(r.window.dataLayer.length,2);
   r.listeners['fmg:video-request']({detail:{video_id:'iPMPtll-P3Q'}});
   assert.equal(r.window.dataLayer.at(-1).event,'video_player_requested');
+  r.listeners['fmg:video-request']({detail:{video_id:'MRPkx_-6n1s'}});
+  assert.equal(r.window.dataLayer.at(-1).video_id,'MRPkx_-6n1s');
 });
 
 test('privacy preferences and unavailable storage prevent optional resource telemetry',()=>{
   for(const options of [{gpc:true},{dnt:'1'},{blockedStorage:true}]) {
     const r=run({video:true,consent:'on',...options});
     r.listeners['fmg:video-request']({detail:{video_id:'iPMPtll-P3Q'}});
+    r.listeners['fmg:video-request']({detail:{video_id:'MRPkx_-6n1s'}});
     assert.equal(r.window.dataLayer,undefined);
   }
 });
