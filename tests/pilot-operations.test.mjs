@@ -25,7 +25,7 @@ function setup(packageId = 'application') {
   const input = {...cases[packageId === 'application' ? 0 : 1], ...consent, packageId};
   const fake = gatewayDouble(input, packageId);
   const service = createPilotService({env: baseEnv, store, stripe, now: () => clock,
-    generate: (intake, options) => runIntelligence(intake, {...options, fetchImpl: fake.fetchImpl})});
+    generate: (intake, options) => runIntelligence(intake, {...options, fetchImpl: fake.fetchImpl,sourceLoader:fake.sourceLoader})});
   async function event(type = 'checkout.session.completed', id = `evt_${randomUUID()}`, overrides = {}) {
     const body = JSON.stringify({id, type, livemode: false, data: {object: {...session}}, ...overrides});
     const signature = sdk.webhooks.generateTestHeaderString({payload: body, secret: webhookSecret});
@@ -91,9 +91,9 @@ test('CRA application and CTM interview share the recovered pipeline, separate s
     assert.equal(ctx.fake.requests.length, 2);
     assert.equal(ctx.fake.requests[0].input.includes(ctx.input.cv), false);
     assert.equal(ctx.fake.requests[1].input.includes(ctx.input.cv), true);
-    assert.equal(ctx.fake.requests[0].max_tool_calls, 3);
+    assert.equal(ctx.fake.requests[0].max_tool_calls, 2);
     assert.equal(ctx.fake.requests[1].store, false);
-    assert.equal(generated.draft.analysis.interview_map.length, packageId === 'interview' ? 2 : 0);
+    assert.equal(generated.draft.analysis.interview_map.length, packageId === 'interview' ? 3 : 0);
     await assert.rejects(invoke('approve', {review: {checks: {}}}), /every/);
     const review = {reviewer: 'Fictional QA reviewer', note: 'All fixture checks reviewed for controlled QA.', checks: Object.fromEntries(REVIEW_CHECKS.map(k => [k, true]))};
     await invoke('approve', {review});assert.equal((await ctx.service.status(ctx.req)).report, null);

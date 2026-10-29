@@ -9,14 +9,15 @@ import {runIntelligence} from '../fmg-to-pharma/lib/intelligence-engine.js';
 import {cases, consent, gatewayDouble} from './pilot-fixtures.mjs';
 test('the eligible-model profile retains source/evidence validation and never calls a paid-tier model', async () => {
   const input={...cases[0],...consent,packageId:'application'}, fake=gatewayDouble(input,'application'), stages=[];
-  const draft=await runIntelligence(input,{env:{FMG_AI_ENABLED:'true',FMG_AI_PROFILE:'free-credit-validation',AI_GATEWAY_API_KEY:'fictional-never-network'},fetchImpl:fake.fetchImpl,onStage:s=>stages.push(s)});
+  const draft=await runIntelligence(input,{env:{FMG_AI_ENABLED:'true',FMG_AI_PROFILE:'free-credit-validation',AI_GATEWAY_API_KEY:'fictional-never-network'},fetchImpl:fake.fetchImpl,sourceLoader:fake.sourceLoader,onStage:s=>stages.push(s)});
   assert.deepEqual(draft.qualityFlags,[]);assert.equal(fake.requests.length,2);
   assert.ok(fake.requests.every(r=>r.model==='openai/gpt-5-mini'&&r.reasoning.effort==='low'));
   assert.equal(fake.requests[0].text,undefined);
   const format=fake.requests[1].text.format;
   assert.equal(format.type,'json_schema');assert.equal(format.strict,true);
   assert.equal(format.schema.additionalProperties,false);
-  assert.equal(format.schema.properties.interview_map.maxItems,8);
+  assert.equal(format.schema.properties.practice.maxItems,0);
+  assert.deepEqual(format.schema.properties.target.properties.role.enum,[input.role]);
   assert.deepEqual(format.schema.required,Object.keys(format.schema.properties));
   assert.deepEqual(stages.map(s=>s.stage),['research','synthesis']);assert.ok(stages[0].sourceURLs>0);
 });

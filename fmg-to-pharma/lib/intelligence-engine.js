@@ -1,9 +1,11 @@
 import {z} from 'zod';
-import {researchPrompt, synthesisPrompt} from './intelligence-prompts.js';
+import {discoveryPrompt, qualityPrompt, baselinePrompt} from './quality-prompts.js';
+import {evidenceCatalogue, qualityOutputFormat, assembleQualityDraft} from './evidence-contract.js';
+import {verifySources, readPublicPage} from './source-verifier.js';
 import {ensure, validateIntake, PACKAGES} from './pilot-domain.js';
 import {gatewayFailure, resolveModels} from './gateway-access.js';
 
-export const ENGINE_VERSION = '0.2.0-recovered-grounding-review';
+export const ENGINE_VERSION = '0.3.0-evidence-bound';
 const GATEWAY = 'https://ai-gateway.vercel.sh/v1/responses';
 const short = z.string().max(6000);
 const source = z.object({url: z.url(), title: short, type: short, date: short}).passthrough();
@@ -95,44 +97,56 @@ export function auditDraft(raw, intake, packageId, verifiedURLs) {
   return {analysis, qualityFlags: [...new Set(flags)], engineVersion: ENGINE_VERSION, requiresFounderReview: true};
 }
 
-export async function runIntelligence(input, {env = process.env, fetchImpl = fetch, now = () => new Date().toISOString(), onStage = () => {}, onDraft = () => {}} = {}) {
-  ensure(env.FMG_AI_ENABLED === 'true', 'AI generation is disabled pending billing and validation approval.');
-  ensure(PACKAGES[input.packageId], 'Unknown package.');
-  const intake = validateIntake(input, input.packageId);
+export function gatewayClient({env=process.env,fetchImpl=fetch,onStage=()=>{},beforeRequest=()=>{}}={}) {
+  ensure(env.FMG_AI_ENABLED === 'true', 'AI generation is disabled pending controlled validation.');
   const token = env.AI_GATEWAY_API_KEY || env.VERCEL_OIDC_TOKEN;
   ensure(token, 'AI Gateway authentication is unavailable.');
   const models = resolveModels(env);
-  const started = Date.now(); const calls = [];
-  async function ask(model, prompt, web) {
+  const calls=[];
+  async function ask(prompt,{web=false,format=null,stage=web?'research':'synthesis'}={}) {
+    const model=web?models.research:models.synthesis;
     const body = {model, input: prompt, store: false, reasoning: {effort: env.FMG_AI_PROFILE === 'free-credit-validation' ? 'low' : 'medium'},
-      max_output_tokens: web ? 6000 : 10000};
+      max_output_tokens: web ? 2000 : 4500};
     if (web) Object.assign(body, {tools: [{type: 'web_search', search_context_size: 'medium'}],
-      tool_choice: 'required', max_tool_calls: 3, include: ['web_search_call.action.sources']});
-    else body.text = {format: reportOutputFormat()};
+      tool_choice: 'required', max_tool_calls: 2, include: ['web_search_call.action.sources']});
+    if(format) body.text={format};
+    await beforeRequest(body);
+    const started=Date.now(),requestStarted=new Date().toISOString();
     const response = await fetchImpl(GATEWAY, {method: 'POST', headers: {authorization: `Bearer ${token}`, 'content-type': 'application/json'},
       body: JSON.stringify(body), signal: AbortSignal.timeout(80000), cache: 'no-store'});
     const data = await response.json();
     if (!response.ok) throw gatewayFailure(response.status, data);
-    onStage({stage: web ? 'research' : 'synthesis', model, status: data.status, outputCharacters: responseText(data).length,
+    const call={stage,model,requestStarted,responseID:data.id || null,inputTokens:data.usage?.input_tokens ?? null,outputTokens:data.usage?.output_tokens ?? null,durationMs:Date.now()-started};
+    calls.push(call);
+    onStage({...call,status: data.status, outputCharacters: responseText(data).length,
       sourceURLs: retrievedURLs(data).length, incompleteReason: data.incomplete_details?.reason || null});
     ensure(data.status !== 'incomplete', 'Model output was incomplete; retry only after reviewing cost and limits.');
-    calls.push({model, inputTokens: data.usage?.input_tokens ?? null, outputTokens: data.usage?.output_tokens ?? null});
-    return {text: responseText(data), urls: retrievedURLs(data)};
+    return {text: responseText(data), urls: retrievedURLs(data),call};
   }
-  const conciseResearch = env.FMG_AI_PROFILE === 'free-credit-validation' ? '\nFor this validation, keep the dossier focused: at most six primary sources, at most two relevant findings per category, and no unrelated news or guessed hiring process. Return all requested keys, using empty arrays where evidence is absent. Keep the JSON under 6,000 characters while retaining direct source URLs and exact role relevance.' : '';
-  const research = await ask(models.research, researchPrompt({...intake, today: now().slice(0, 10)}) + conciseResearch, true);
+  return {ask,calls,models};
+}
+export async function runIntelligence(input, {env = process.env, fetchImpl = fetch, now = () => new Date().toISOString(), onStage = () => {}, onDraft = () => {}, onPacket=()=>{}, sourceLoader=readPublicPage,beforeRequest=()=>{}} = {}) {
+  ensure(PACKAGES[input.packageId], 'Unknown package.');
+  const client=gatewayClient({env,fetchImpl,onStage,beforeRequest});
+  const intake=validateIntake(input,input.packageId), catalogue=evidenceCatalogue(intake), started=Date.now();
+  const research = await client.ask(discoveryPrompt(intake,now().slice(0,10)),{web:true});
   const dossier = parseJSON(research.text);
-  ensure(Array.isArray(dossier.sources) && dossier.sources.length && research.urls.length, 'Research returned no independently recorded source URLs.');
-  // Reject malformed research rather than silently passing raw text into synthesis.
-  const referenced = new Set(research.urls);
-  dossier.sources = dossier.sources.filter(s => referenced.has(publicURL(s.url)));
-  ensure(dossier.sources.length, 'Research citations could not be grounded in tool results.');
-  const synthesis = await ask(models.synthesis, synthesisPrompt({...intake, dossier, packageId: input.packageId}), false);
+  ensure(Array.isArray(dossier.sources),'Research returned no source list.');
+  const referenced = new Set(research.urls.map(publicURL));
+  const discovered=dossier.sources.map(s=>publicURL(s.url)).filter(url=>url&&referenced.has(url));
+  const sources=await verifySources(discovered,intake.jobUrl,{load:sourceLoader,now});
+  onPacket({intake,catalogue,sources,discoveryLimitations:dossier.limitations || []});
+  const synthesis=await client.ask(qualityPrompt(catalogue,sources,input.packageId),{format:qualityOutputFormat(catalogue,sources,input.packageId)});
   const raw = parseJSON(synthesis.text);
   onDraft(raw);
-  const result = auditDraft(raw, intake, input.packageId, dossier.sources.map(s => s.url));
-  result.researchedAt = now(); result.researchGaps = Array.isArray(dossier.research_gaps) ? dossier.research_gaps : [];
-  result.telemetry = {durationMs: Date.now() - started, calls, costUSD: null,
+  const result=assembleQualityDraft(raw,intake,catalogue,sources,input.packageId,now());
+  result.telemetry = {durationMs: Date.now() - started, calls:client.calls, costUSD: null,
     costNote: 'Token usage is recorded when supplied. Tool and provider charges require reconciliation with Gateway billing.'};
   return result;
+}
+export async function runBaseline(packet,packageId,options={}) {
+  ensure(options.env?.FMG_AI_PROFILE==='free-credit-validation','Baseline is limited to the explicit free-credit validation profile.');
+  const client=gatewayClient(options),started=Date.now();
+  const response=await client.ask(baselinePrompt(packet.catalogue,packet.sources,packageId),{stage:'baseline'});
+  return {text:response.text,telemetry:{durationMs:Date.now()-started,calls:client.calls}};
 }

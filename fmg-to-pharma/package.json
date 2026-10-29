@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test ../tests/*.test.mjs",
-    "vercel-build": "node lib/gateway-build-audit.mjs"
+    "vercel-build": "node lib/preview-build.mjs"
   },
   "dependencies": {
     "nodemailer": "10.2.1",
