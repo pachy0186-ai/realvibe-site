@@ -75,7 +75,7 @@ export function auditDraft(raw, intake, packageId, verifiedURLs) {
   return {analysis, qualityFlags: [...new Set(flags)], engineVersion: ENGINE_VERSION, requiresFounderReview: true};
 }
 
-export async function runIntelligence(input, {env = process.env, fetchImpl = fetch, now = () => new Date().toISOString()} = {}) {
+export async function runIntelligence(input, {env = process.env, fetchImpl = fetch, now = () => new Date().toISOString(), onStage = () => {}} = {}) {
   ensure(env.FMG_AI_ENABLED === 'true', 'AI generation is disabled pending billing and validation approval.');
   ensure(PACKAGES[input.packageId], 'Unknown package.');
   const intake = validateIntake(input, input.packageId);
@@ -84,7 +84,7 @@ export async function runIntelligence(input, {env = process.env, fetchImpl = fet
   const models = resolveModels(env);
   const started = Date.now(); const calls = [];
   async function ask(model, prompt, web) {
-    const body = {model, input: prompt, store: false, reasoning: {effort: 'medium'},
+    const body = {model, input: prompt, store: false, reasoning: {effort: env.FMG_AI_PROFILE === 'free-credit-validation' ? 'low' : 'medium'},
       max_output_tokens: web ? 6000 : 10000};
     if (web) Object.assign(body, {tools: [{type: 'web_search', search_context_size: 'medium'}],
       tool_choice: 'required', max_tool_calls: 3, include: ['web_search_call.action.sources']});
@@ -92,11 +92,14 @@ export async function runIntelligence(input, {env = process.env, fetchImpl = fet
       body: JSON.stringify(body), signal: AbortSignal.timeout(80000), cache: 'no-store'});
     const data = await response.json();
     if (!response.ok) throw gatewayFailure(response.status, data);
+    onStage({stage: web ? 'research' : 'synthesis', model, status: data.status, outputCharacters: responseText(data).length,
+      sourceURLs: retrievedURLs(data).length, incompleteReason: data.incomplete_details?.reason || null});
     ensure(data.status !== 'incomplete', 'Model output was incomplete; retry only after reviewing cost and limits.');
     calls.push({model, inputTokens: data.usage?.input_tokens ?? null, outputTokens: data.usage?.output_tokens ?? null});
     return {text: responseText(data), urls: retrievedURLs(data)};
   }
-  const research = await ask(models.research, researchPrompt({...intake, today: now().slice(0, 10)}), true);
+  const conciseResearch = env.FMG_AI_PROFILE === 'free-credit-validation' ? '\nFor this validation, keep the dossier focused: at most six primary sources, at most two relevant findings per category, and no unrelated news or guessed hiring process. Return all requested keys, using empty arrays where evidence is absent. Keep the JSON under 6,000 characters while retaining direct source URLs and exact role relevance.' : '';
+  const research = await ask(models.research, researchPrompt({...intake, today: now().slice(0, 10)}) + conciseResearch, true);
   const dossier = parseJSON(research.text);
   ensure(Array.isArray(dossier.sources) && dossier.sources.length && research.urls.length, 'Research returned no independently recorded source URLs.');
   // Reject malformed research rather than silently passing raw text into synthesis.
