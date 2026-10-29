@@ -26,6 +26,26 @@ const draftSchema = z.object({
   source_index: z.array(source).min(1).max(20), quality_notes: z.array(short).max(20),
 }).passthrough();
 
+// Keep provider output and server validation aligned. URL syntax is checked again
+// by Zod and the source audit; the provider supports only a JSON Schema subset.
+export function reportOutputFormat() {
+  const schema = z.toJSONSchema(draftSchema);
+  function strict(node) {
+    if (!node || typeof node !== 'object') return;
+    delete node.$schema;
+    if (node.format === 'uri') delete node.format;
+    if (node.type === 'object') {
+      node.additionalProperties = false;
+      node.required = Object.keys(node.properties || {});
+    }
+    for (const value of Object.values(node)) {
+      if (Array.isArray(value)) value.forEach(strict); else strict(value);
+    }
+  }
+  strict(schema);
+  return {type: 'json_schema', name: 'fmg_intelligence_report', strict: true, schema};
+}
+
 export function parseJSON(text) {
   const value = String(text || '').replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
   ensure(value.length <= 180000, 'Model output exceeds the review limit.');
@@ -75,7 +95,7 @@ export function auditDraft(raw, intake, packageId, verifiedURLs) {
   return {analysis, qualityFlags: [...new Set(flags)], engineVersion: ENGINE_VERSION, requiresFounderReview: true};
 }
 
-export async function runIntelligence(input, {env = process.env, fetchImpl = fetch, now = () => new Date().toISOString(), onStage = () => {}} = {}) {
+export async function runIntelligence(input, {env = process.env, fetchImpl = fetch, now = () => new Date().toISOString(), onStage = () => {}, onDraft = () => {}} = {}) {
   ensure(env.FMG_AI_ENABLED === 'true', 'AI generation is disabled pending billing and validation approval.');
   ensure(PACKAGES[input.packageId], 'Unknown package.');
   const intake = validateIntake(input, input.packageId);
@@ -88,6 +108,7 @@ export async function runIntelligence(input, {env = process.env, fetchImpl = fet
       max_output_tokens: web ? 6000 : 10000};
     if (web) Object.assign(body, {tools: [{type: 'web_search', search_context_size: 'medium'}],
       tool_choice: 'required', max_tool_calls: 3, include: ['web_search_call.action.sources']});
+    else body.text = {format: reportOutputFormat()};
     const response = await fetchImpl(GATEWAY, {method: 'POST', headers: {authorization: `Bearer ${token}`, 'content-type': 'application/json'},
       body: JSON.stringify(body), signal: AbortSignal.timeout(80000), cache: 'no-store'});
     const data = await response.json();
@@ -107,7 +128,9 @@ export async function runIntelligence(input, {env = process.env, fetchImpl = fet
   dossier.sources = dossier.sources.filter(s => referenced.has(publicURL(s.url)));
   ensure(dossier.sources.length, 'Research citations could not be grounded in tool results.');
   const synthesis = await ask(models.synthesis, synthesisPrompt({...intake, dossier, packageId: input.packageId}), false);
-  const result = auditDraft(parseJSON(synthesis.text), intake, input.packageId, dossier.sources.map(s => s.url));
+  const raw = parseJSON(synthesis.text);
+  onDraft(raw);
+  const result = auditDraft(raw, intake, input.packageId, dossier.sources.map(s => s.url));
   result.researchedAt = now(); result.researchGaps = Array.isArray(dossier.research_gaps) ? dossier.research_gaps : [];
   result.telemetry = {durationMs: Date.now() - started, calls, costUSD: null,
     costNote: 'Token usage is recorded when supplied. Tool and provider charges require reconciliation with Gateway billing.'};
