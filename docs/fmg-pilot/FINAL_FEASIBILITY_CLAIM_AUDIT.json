@@ -1,0 +1,2008 @@
+[
+  {
+    "case": "CRA",
+    "engineVersion": "0.4.0-evidence-first",
+    "reviewer": "Deterministic validator plus separate unblinded Codex semantic review; no independent human review.",
+    "humanReview": {
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "checkpoints": [
+        "Candidate truth and negation",
+        "Requirement classification and completeness",
+        "Role/competency duration and ownership",
+        "Material source support and relevance",
+        "Recommendation usefulness and safe practice",
+        "Readability and package scope"
+      ]
+    },
+    "materialUnsupportedCandidateClaimsObserved": 0,
+    "materialUnsupportedEmployerClaimsObserved": 0,
+    "checks": [
+      {
+        "id": "target",
+        "type": "target",
+        "text": {
+          "company": "ICON",
+          "role": "CRA II and Senior CRA"
+        },
+        "passed": true,
+        "evidence": {
+          "company": "ICON",
+          "role": "CRA II and Senior CRA"
+        },
+        "limitation": "",
+        "auditKey": "CRA:target:1"
+      },
+      {
+        "id": "jd-hash",
+        "type": "input_integrity",
+        "text": "f252815acdcb8e882a0202f0693236b1593054767904d9b1961069df7ac9570b",
+        "passed": true,
+        "evidence": {
+          "original": "supplied JD"
+        },
+        "limitation": "",
+        "auditKey": "CRA:jd-hash:1"
+      },
+      {
+        "id": "cv-hash",
+        "type": "input_integrity",
+        "text": "b5374d79edf255dd2bc57cef15beb6664d224438c725bf9b3540971557a3525f",
+        "passed": true,
+        "evidence": {
+          "original": "supplied CV"
+        },
+        "limitation": "",
+        "auditKey": "CRA:cv-hash:1"
+      },
+      {
+        "id": "decision-text",
+        "type": "registered_recommendation",
+        "text": {
+          "recommendation": "Clarify eligibility first",
+          "competitiveness": "Not scored as a hiring probability",
+          "summary": "Clarify eligibility and evidence before relying on this assessment. The report separates supplied evidence from unverified scope, duration and employer acceptance.",
+          "reasons_for": [],
+          "reasons_against": []
+        },
+        "passed": true,
+        "evidence": {
+          "registry": "CAREER_DECISION"
+        },
+        "limitation": "",
+        "auditKey": "CRA:decision-text:1"
+      },
+      {
+        "id": "J1",
+        "type": "job_requirement",
+        "text": "Responsibilities include site monitoring across qualification",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include site monitoring across qualification, initiation, routine monitoring and close-out, checking protocol and GCP adherence, reviewing trial records and data quality, maintaining clinical-trial systems and collaborating with site teams."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J1:1"
+      },
+      {
+        "id": "J2",
+        "type": "job_requirement",
+        "text": "initiation",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include site monitoring across qualification, initiation, routine monitoring and close-out, checking protocol and GCP adherence, reviewing trial records and data quality, maintaining clinical-trial systems and collaborating with site teams."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J2:1"
+      },
+      {
+        "id": "J3",
+        "type": "job_requirement",
+        "text": "routine monitoring",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include site monitoring across qualification, initiation, routine monitoring and close-out, checking protocol and GCP adherence, reviewing trial records and data quality, maintaining clinical-trial systems and collaborating with site teams."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J3:1"
+      },
+      {
+        "id": "J4",
+        "type": "job_requirement",
+        "text": "close-out",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include site monitoring across qualification, initiation, routine monitoring and close-out, checking protocol and GCP adherence, reviewing trial records and data quality, maintaining clinical-trial systems and collaborating with site teams."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J4:1"
+      },
+      {
+        "id": "J5",
+        "type": "job_requirement",
+        "text": "checking protocol and GCP adherence",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include site monitoring across qualification, initiation, routine monitoring and close-out, checking protocol and GCP adherence, reviewing trial records and data quality, maintaining clinical-trial systems and collaborating with site teams."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J5:1"
+      },
+      {
+        "id": "J6",
+        "type": "job_requirement",
+        "text": "reviewing trial records and data quality",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include site monitoring across qualification, initiation, routine monitoring and close-out, checking protocol and GCP adherence, reviewing trial records and data quality, maintaining clinical-trial systems and collaborating with site teams."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J6:1"
+      },
+      {
+        "id": "J7",
+        "type": "job_requirement",
+        "text": "maintaining clinical-trial systems and collaborating with site teams.",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include site monitoring across qualification, initiation, routine monitoring and close-out, checking protocol and GCP adherence, reviewing trial records and data quality, maintaining clinical-trial systems and collaborating with site teams."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J7:1"
+      },
+      {
+        "id": "J8",
+        "type": "job_requirement",
+        "text": "The posting requests a relevant bachelor's degree",
+        "passed": true,
+        "evidence": {
+          "classification": "mandatory",
+          "sourceSentence": "The posting requests a relevant bachelor's degree, at least one year of independent monitoring experience and ICH-GCP knowledge."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J8:1"
+      },
+      {
+        "id": "J9",
+        "type": "job_requirement",
+        "text": "at least one year of independent monitoring experience",
+        "passed": true,
+        "evidence": {
+          "classification": "mandatory",
+          "sourceSentence": "The posting requests a relevant bachelor's degree, at least one year of independent monitoring experience and ICH-GCP knowledge."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J9:1"
+      },
+      {
+        "id": "J10",
+        "type": "job_requirement",
+        "text": "ICH-GCP knowledge.",
+        "passed": true,
+        "evidence": {
+          "classification": "mandatory",
+          "sourceSentence": "The posting requests a relevant bachelor's degree, at least one year of independent monitoring experience and ICH-GCP knowledge."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J10:1"
+      },
+      {
+        "id": "J11",
+        "type": "job_requirement",
+        "text": "Approximately 60 percent travel is indicated.",
+        "passed": true,
+        "evidence": {
+          "classification": "constraint",
+          "sourceSentence": "Approximately 60 percent travel is indicated."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CRA:J11:1"
+      },
+      {
+        "id": "T1",
+        "type": "reported_role_duration",
+        "text": "Two years as a site Clinical Research Coordinator",
+        "passed": true,
+        "evidence": {
+          "value": 2,
+          "unit": "years",
+          "months": 24,
+          "family": "crc"
+        },
+        "limitation": "Job-title tenure is not independent-monitoring or qualifying CTM tenure.",
+        "auditKey": "CRA:T1:1"
+      },
+      {
+        "id": "T2",
+        "type": "reported_role_duration",
+        "text": "18 months as a CRO Clinical Research Associate.",
+        "passed": true,
+        "evidence": {
+          "value": 18,
+          "unit": "months",
+          "months": 18,
+          "family": "cra"
+        },
+        "limitation": "Job-title tenure is not independent-monitoring or qualifying CTM tenure.",
+        "auditKey": "CRA:T2:1"
+      },
+      {
+        "id": "sum",
+        "type": "derived_arithmetic",
+        "text": "42 stated months / 12 = 3.5 years",
+        "passed": true,
+        "evidence": {
+          "operands": [
+            "T1",
+            "T2"
+          ]
+        },
+        "limitation": "Overlaps and employer relevance are unverified.",
+        "auditKey": "CRA:sum:1"
+      },
+      {
+        "id": "displayed-duration-summary",
+        "type": "derived_arithmetic",
+        "text": {
+          "listedRoleMonths": 42,
+          "listedRoleYears": 3.5,
+          "independentMonitoringMonths": null,
+          "qualifyingCtmMonths": null,
+          "caveat": "The arithmetic sums stated role durations only. Overlaps, employer relevance, independent monitoring duration and qualifying CTM tenure require separate confirmation."
+        },
+        "passed": true,
+        "evidence": {
+          "source": "validated role-duration operands"
+        },
+        "limitation": "",
+        "auditKey": "CRA:displayed-duration-summary:1"
+      },
+      {
+        "id": "independent-duration",
+        "type": "unknown",
+        "text": null,
+        "passed": true,
+        "evidence": {
+          "reason": "No explicitly quantified independent monitoring period."
+        },
+        "limitation": "",
+        "auditKey": "CRA:independent-duration:1"
+      },
+      {
+        "id": "qualifying-ctm-duration",
+        "type": "unknown",
+        "text": null,
+        "passed": true,
+        "evidence": {
+          "reason": "No employer-confirmed qualifying CTM tenure is supplied."
+        },
+        "limitation": "",
+        "auditKey": "CRA:qualifying-ctm-duration:1"
+      },
+      {
+        "id": "K1",
+        "type": "clinical_interpretation",
+        "text": "Independent site qualification ownership needs explicit evidence; routine visits do not establish it.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J1",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C6"
+          ],
+          "rule": "qualification_visit"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K1:1"
+      },
+      {
+        "id": "K2",
+        "type": "clinical_interpretation",
+        "text": "Independent site initiation ownership needs explicit evidence; coordination or routine monitoring does not establish it.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J2",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C6"
+          ],
+          "rule": "initiation_visit"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K2:1"
+      },
+      {
+        "id": "K3",
+        "type": "clinical_interpretation",
+        "text": "Routine monitoring activity is explicitly reported; its duration is a separate unresolved question.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J3",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C5"
+          ],
+          "rule": "routine_monitoring"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K3:1"
+      },
+      {
+        "id": "K4",
+        "type": "clinical_interpretation",
+        "text": "Close-out support is reported. It is not evidence of independent close-out ownership.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J4",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C6"
+          ],
+          "rule": "closeout"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K4:1"
+      },
+      {
+        "id": "K5",
+        "type": "clinical_interpretation",
+        "text": "Training, applied GCP judgment and independent monitoring are different types of evidence. A listed course does not establish a certification or a decision-making example.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J5",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C9"
+          ],
+          "rule": "gcp"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K5:1"
+      },
+      {
+        "id": "K6",
+        "type": "clinical_interpretation",
+        "text": "Query/documentation activity can support a data-quality example. No performance improvement or inspection outcome is inferred.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J6",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C7"
+          ],
+          "rule": "data_quality"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K6:1"
+      },
+      {
+        "id": "K7",
+        "type": "clinical_interpretation",
+        "text": "Specific clinical systems experience is not implied by a CRA title or query tracking.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J7",
+          "classification": "responsibility",
+          "candidateIds": [],
+          "rule": "systems"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K7:1"
+      },
+      {
+        "id": "K8",
+        "type": "clinical_interpretation",
+        "text": "A degree is reported in the intake. Credential equivalence and the employer’s acceptance remain unverified.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J8",
+          "classification": "mandatory",
+          "candidateIds": [
+            "C3"
+          ],
+          "rule": "education"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K8:1"
+      },
+      {
+        "id": "K9",
+        "type": "clinical_interpretation",
+        "text": "CRA role tenure is 18 stated months; independent monitoring duration is not quantified. A CRA title or CRC coordination period does not establish the 12-month independent-monitoring minimum.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J9",
+          "classification": "mandatory",
+          "candidateIds": [
+            "C4",
+            "C5"
+          ],
+          "rule": "independent_monitoring_tenure"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K9:1"
+      },
+      {
+        "id": "K10",
+        "type": "clinical_interpretation",
+        "text": "Training, applied GCP judgment and independent monitoring are different types of evidence. A listed course does not establish a certification or a decision-making example.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J10",
+          "classification": "mandatory",
+          "candidateIds": [
+            "C9"
+          ],
+          "rule": "gcp"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K10:1"
+      },
+      {
+        "id": "K11",
+        "type": "clinical_interpretation",
+        "text": "Travel availability is not established when the intake leaves it unspecified. Work authorization is a separate question.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J11",
+          "classification": "constraint",
+          "candidateIds": [
+            "C10"
+          ],
+          "rule": "travel"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CRA:K11:1"
+      },
+      {
+        "id": "E1",
+        "type": "employer_fact",
+        "text": "The inspected exact target posting states an independent-monitoring minimum.",
+        "passed": true,
+        "evidence": {
+          "sourceId": "S1",
+          "url": "https://careers.iconplc.com/job/cra-ii-and-senior-cra-in-regional-united-states-pra-jid-53448",
+          "contentSHA256": "2097ce0d8192ac0865d53367b78d6441309c3885deeb9e26c893f296d8ae2c2f",
+          "quote": "Minimum of 1 year of independent monitoring experience.",
+          "checkedAt": "2026-10-29T11:51:03.162Z"
+        },
+        "limitation": "An excerpt supports its limited claim, not private hiring practices.",
+        "auditKey": "CRA:E1:1"
+      },
+      {
+        "id": "E2",
+        "type": "employer_fact",
+        "text": "The inspected exact target posting states a travel expectation.",
+        "passed": true,
+        "evidence": {
+          "sourceId": "S1",
+          "url": "https://careers.iconplc.com/job/cra-ii-and-senior-cra-in-regional-united-states-pra-jid-53448",
+          "contentSHA256": "2097ce0d8192ac0865d53367b78d6441309c3885deeb9e26c893f296d8ae2c2f",
+          "quote": "Willingness to travel as required (approximately 60%)",
+          "checkedAt": "2026-10-29T11:51:03.162Z"
+        },
+        "limitation": "An excerpt supports its limited claim, not private hiring practices.",
+        "auditKey": "CRA:E2:1"
+      },
+      {
+        "id": "E3",
+        "type": "employer_fact",
+        "text": "The inspected applicant AI policy restricts misrepresentation of skills or experience.",
+        "passed": true,
+        "evidence": {
+          "sourceId": "S2",
+          "url": "https://careers.iconplc.com/ai-usage-policy-for-job-applicants",
+          "contentSHA256": "a596967ad5c06d780412f876f6e44b326a6a938a3dde1d1f95f87d18d0c8ee1c",
+          "quote": "inaccurately portrays one's skills, experiences, or qualifications",
+          "checkedAt": "2026-10-29T11:51:03.386Z"
+        },
+        "limitation": "An excerpt supports its limited claim, not private hiring practices.",
+        "auditKey": "CRA:E3:1"
+      },
+      {
+        "id": "displayed-employer-1",
+        "type": "compiled_employer_claim",
+        "text": "The inspected exact target posting states an independent-monitoring minimum.",
+        "passed": true,
+        "evidence": {
+          "factId": "E1"
+        },
+        "limitation": "",
+        "auditKey": "CRA:displayed-employer-1:1"
+      },
+      {
+        "id": "displayed-employer-2",
+        "type": "compiled_employer_claim",
+        "text": "The inspected exact target posting states a travel expectation.",
+        "passed": true,
+        "evidence": {
+          "factId": "E2"
+        },
+        "limitation": "",
+        "auditKey": "CRA:displayed-employer-2:1"
+      },
+      {
+        "id": "displayed-employer-3",
+        "type": "compiled_employer_claim",
+        "text": "The inspected applicant AI policy restricts misrepresentation of skills or experience.",
+        "passed": true,
+        "evidence": {
+          "factId": "E3"
+        },
+        "limitation": "",
+        "auditKey": "CRA:displayed-employer-3:1"
+      },
+      {
+        "id": "finding-1",
+        "type": "compiled_interpretation",
+        "text": "CRA role tenure is 18 stated months; independent monitoring duration is not quantified. A CRA title or CRC coordination period does not establish the 12-month independent-monitoring minimum.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K9"
+        },
+        "limitation": "",
+        "auditKey": "CRA:finding-1:1"
+      },
+      {
+        "id": "finding-2",
+        "type": "compiled_interpretation",
+        "text": "Travel availability is not established when the intake leaves it unspecified. Work authorization is a separate question.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K11"
+        },
+        "limitation": "",
+        "auditKey": "CRA:finding-2:1"
+      },
+      {
+        "id": "finding-3",
+        "type": "compiled_interpretation",
+        "text": "Independent site qualification ownership needs explicit evidence; routine visits do not establish it.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K1"
+        },
+        "limitation": "",
+        "auditKey": "CRA:finding-3:1"
+      },
+      {
+        "id": "display-K8",
+        "type": "displayed_evidence",
+        "text": "The posting requests a relevant bachelor's degree",
+        "passed": true,
+        "evidence": {
+          "jobId": "J8",
+          "candidateIds": [
+            "C3"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K8:1"
+      },
+      {
+        "id": "display-K9",
+        "type": "displayed_evidence",
+        "text": "at least one year of independent monitoring experience",
+        "passed": true,
+        "evidence": {
+          "jobId": "J9",
+          "candidateIds": [
+            "C4",
+            "C5"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K9:1"
+      },
+      {
+        "id": "display-K10",
+        "type": "displayed_evidence",
+        "text": "ICH-GCP knowledge.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J10",
+          "candidateIds": [
+            "C9"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K10:1"
+      },
+      {
+        "id": "display-K11",
+        "type": "displayed_evidence",
+        "text": "Approximately 60 percent travel is indicated.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J11",
+          "candidateIds": [
+            "C10"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K11:1"
+      },
+      {
+        "id": "display-K1",
+        "type": "displayed_evidence",
+        "text": "Responsibilities include site monitoring across qualification",
+        "passed": true,
+        "evidence": {
+          "jobId": "J1",
+          "candidateIds": [
+            "C6"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K1:1"
+      },
+      {
+        "id": "display-K2",
+        "type": "displayed_evidence",
+        "text": "initiation",
+        "passed": true,
+        "evidence": {
+          "jobId": "J2",
+          "candidateIds": [
+            "C6"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K2:1"
+      },
+      {
+        "id": "display-K1",
+        "type": "displayed_evidence",
+        "text": "Responsibilities include site monitoring across qualification",
+        "passed": true,
+        "evidence": {
+          "jobId": "J1",
+          "candidateIds": [
+            "C6"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K1:2"
+      },
+      {
+        "id": "display-K2",
+        "type": "displayed_evidence",
+        "text": "initiation",
+        "passed": true,
+        "evidence": {
+          "jobId": "J2",
+          "candidateIds": [
+            "C6"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K2:2"
+      },
+      {
+        "id": "display-K3",
+        "type": "displayed_evidence",
+        "text": "routine monitoring",
+        "passed": true,
+        "evidence": {
+          "jobId": "J3",
+          "candidateIds": [
+            "C5"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K3:1"
+      },
+      {
+        "id": "display-K4",
+        "type": "displayed_evidence",
+        "text": "close-out",
+        "passed": true,
+        "evidence": {
+          "jobId": "J4",
+          "candidateIds": [
+            "C6"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K4:1"
+      },
+      {
+        "id": "display-K5",
+        "type": "displayed_evidence",
+        "text": "checking protocol and GCP adherence",
+        "passed": true,
+        "evidence": {
+          "jobId": "J5",
+          "candidateIds": [
+            "C9"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K5:1"
+      },
+      {
+        "id": "display-K6",
+        "type": "displayed_evidence",
+        "text": "reviewing trial records and data quality",
+        "passed": true,
+        "evidence": {
+          "jobId": "J6",
+          "candidateIds": [
+            "C7"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K6:1"
+      },
+      {
+        "id": "display-K7",
+        "type": "displayed_evidence",
+        "text": "maintaining clinical-trial systems and collaborating with site teams.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J7",
+          "candidateIds": []
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K7:1"
+      },
+      {
+        "id": "display-K8",
+        "type": "displayed_evidence",
+        "text": "The posting requests a relevant bachelor's degree",
+        "passed": true,
+        "evidence": {
+          "jobId": "J8",
+          "candidateIds": [
+            "C3"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K8:2"
+      },
+      {
+        "id": "display-K9",
+        "type": "displayed_evidence",
+        "text": "at least one year of independent monitoring experience",
+        "passed": true,
+        "evidence": {
+          "jobId": "J9",
+          "candidateIds": [
+            "C4",
+            "C5"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K9:2"
+      },
+      {
+        "id": "display-K10",
+        "type": "displayed_evidence",
+        "text": "ICH-GCP knowledge.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J10",
+          "candidateIds": [
+            "C9"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K10:2"
+      },
+      {
+        "id": "display-K11",
+        "type": "displayed_evidence",
+        "text": "Approximately 60 percent travel is indicated.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J11",
+          "candidateIds": [
+            "C10"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:display-K11:2"
+      },
+      {
+        "id": "action-1",
+        "type": "registered_action",
+        "text": "Document the start/end dates and independently performed visit types; count independent monitoring months separately from CRC and CRA job tenure.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K9"
+        },
+        "limitation": "",
+        "auditKey": "CRA:action-1:1"
+      },
+      {
+        "id": "action-2",
+        "type": "registered_action",
+        "text": "Confirm the stated travel expectation and report personal availability accurately.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K11"
+        },
+        "limitation": "",
+        "auditKey": "CRA:action-2:1"
+      },
+      {
+        "id": "action-3",
+        "type": "registered_action",
+        "text": "If applicable, describe personal qualification-visit responsibilities without providing confidential trial records.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K1"
+        },
+        "limitation": "",
+        "auditKey": "CRA:action-3:1"
+      },
+      {
+        "id": "action-4",
+        "type": "registered_action",
+        "text": "Confirm whether initiation visits were supported or independently conducted, using deidentified descriptions.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K2"
+        },
+        "limitation": "",
+        "auditKey": "CRA:action-4:1"
+      },
+      {
+        "id": "selection",
+        "type": "recommendation_selection",
+        "text": {
+          "priority_ids": [
+            "K9",
+            "K11",
+            "K1"
+          ],
+          "action_ids": [
+            "K9",
+            "K11",
+            "K1",
+            "K2"
+          ],
+          "practice_ids": []
+        },
+        "passed": true,
+        "evidence": {
+          "allowedCardIds": [
+            "K1",
+            "K2",
+            "K3",
+            "K4",
+            "K5",
+            "K6",
+            "K7",
+            "K8",
+            "K9",
+            "K10",
+            "K11"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:selection:1"
+      },
+      {
+        "id": "complete-register",
+        "type": "requirement_completeness",
+        "text": [
+          "J1",
+          "J2",
+          "J3",
+          "J4",
+          "J5",
+          "J6",
+          "J7",
+          "J8",
+          "J9",
+          "J10",
+          "J11"
+        ],
+        "passed": true,
+        "evidence": {
+          "expected": [
+            "J1",
+            "J2",
+            "J3",
+            "J4",
+            "J5",
+            "J6",
+            "J7",
+            "J8",
+            "J9",
+            "J10",
+            "J11"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CRA:complete-register:1"
+      }
+    ],
+    "semanticLimitations": [
+      "Combined systems/site-collaboration clause is preserved but interpreted only for systems; documented site-staff collaboration is underused.",
+      "No tailored positive résumé positioning or senior-readiness analysis is delivered."
+    ]
+  },
+  {
+    "case": "CTM",
+    "engineVersion": "0.4.0-evidence-first",
+    "reviewer": "Deterministic validator plus separate unblinded Codex semantic review; no independent human review.",
+    "humanReview": {
+      "status": "pending",
+      "reviewer": null,
+      "reviewedAt": null,
+      "checkpoints": [
+        "Candidate truth and negation",
+        "Requirement classification and completeness",
+        "Role/competency duration and ownership",
+        "Material source support and relevance",
+        "Recommendation usefulness and safe practice",
+        "Readability and package scope"
+      ]
+    },
+    "materialUnsupportedCandidateClaimsObserved": 0,
+    "materialUnsupportedEmployerClaimsObserved": 0,
+    "checks": [
+      {
+        "id": "target",
+        "type": "target",
+        "text": {
+          "company": "ICON",
+          "role": "Clinical Trial Manager II Biotech — United States, Remote"
+        },
+        "passed": true,
+        "evidence": {
+          "company": "ICON",
+          "role": "Clinical Trial Manager II Biotech — United States, Remote"
+        },
+        "limitation": "",
+        "auditKey": "CTM:target:1"
+      },
+      {
+        "id": "jd-hash",
+        "type": "input_integrity",
+        "text": "91840b3eb25eef44aacc32e39da0ee02b4df8d07513412c7ab2cf80656f8ca4f",
+        "passed": true,
+        "evidence": {
+          "original": "supplied JD"
+        },
+        "limitation": "",
+        "auditKey": "CTM:jd-hash:1"
+      },
+      {
+        "id": "cv-hash",
+        "type": "input_integrity",
+        "text": "656fb2f0db876b71e0ff7399d142e0a97b0000a0f21cf2abcca459cf834ec0c7",
+        "passed": true,
+        "evidence": {
+          "original": "supplied CV"
+        },
+        "limitation": "",
+        "auditKey": "CTM:cv-hash:1"
+      },
+      {
+        "id": "decision-text",
+        "type": "registered_recommendation",
+        "text": {
+          "recommendation": "Clarify eligibility first",
+          "competitiveness": "Not scored as a hiring probability",
+          "summary": "Clarify eligibility and evidence before relying on this assessment. The report separates supplied evidence from unverified scope, duration and employer acceptance.",
+          "reasons_for": [],
+          "reasons_against": []
+        },
+        "passed": true,
+        "evidence": {
+          "registry": "CAREER_DECISION"
+        },
+        "limitation": "",
+        "auditKey": "CTM:decision-text:1"
+      },
+      {
+        "id": "J1",
+        "type": "job_requirement",
+        "text": "Responsibilities include clinical budget oversight",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include clinical budget oversight, monitoring plans, CRA training and mentoring, study start-up and enrollment timelines, trip-report review, corrective and preventive actions, and sponsor/vendor/cross-functional relationships."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J1:1"
+      },
+      {
+        "id": "J2",
+        "type": "job_requirement",
+        "text": "monitoring plans",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include clinical budget oversight, monitoring plans, CRA training and mentoring, study start-up and enrollment timelines, trip-report review, corrective and preventive actions, and sponsor/vendor/cross-functional relationships."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J2:1"
+      },
+      {
+        "id": "J3",
+        "type": "job_requirement",
+        "text": "CRA training and mentoring",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include clinical budget oversight, monitoring plans, CRA training and mentoring, study start-up and enrollment timelines, trip-report review, corrective and preventive actions, and sponsor/vendor/cross-functional relationships."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J3:1"
+      },
+      {
+        "id": "J4",
+        "type": "job_requirement",
+        "text": "study start-up and enrollment timelines",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include clinical budget oversight, monitoring plans, CRA training and mentoring, study start-up and enrollment timelines, trip-report review, corrective and preventive actions, and sponsor/vendor/cross-functional relationships."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J4:1"
+      },
+      {
+        "id": "J5",
+        "type": "job_requirement",
+        "text": "trip-report review",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include clinical budget oversight, monitoring plans, CRA training and mentoring, study start-up and enrollment timelines, trip-report review, corrective and preventive actions, and sponsor/vendor/cross-functional relationships."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J5:1"
+      },
+      {
+        "id": "J6",
+        "type": "job_requirement",
+        "text": "corrective and preventive actions",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include clinical budget oversight, monitoring plans, CRA training and mentoring, study start-up and enrollment timelines, trip-report review, corrective and preventive actions, and sponsor/vendor/cross-functional relationships."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J6:1"
+      },
+      {
+        "id": "J7",
+        "type": "job_requirement",
+        "text": "and sponsor/vendor/cross-functional relationships.",
+        "passed": true,
+        "evidence": {
+          "classification": "responsibility",
+          "sourceSentence": "Responsibilities include clinical budget oversight, monitoring plans, CRA training and mentoring, study start-up and enrollment timelines, trip-report review, corrective and preventive actions, and sponsor/vendor/cross-functional relationships."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J7:1"
+      },
+      {
+        "id": "J8",
+        "type": "job_requirement",
+        "text": "The Level 2 profile requires at least two years in a CTM position at a CRO",
+        "passed": true,
+        "evidence": {
+          "classification": "mandatory",
+          "sourceSentence": "The Level 2 profile requires at least two years in a CTM position at a CRO, a relevant bachelor's degree and at least eight years of relevant experience."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J8:1"
+      },
+      {
+        "id": "J9",
+        "type": "job_requirement",
+        "text": "a relevant bachelor's degree",
+        "passed": true,
+        "evidence": {
+          "classification": "mandatory",
+          "sourceSentence": "The Level 2 profile requires at least two years in a CTM position at a CRO, a relevant bachelor's degree and at least eight years of relevant experience."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J9:1"
+      },
+      {
+        "id": "J10",
+        "type": "job_requirement",
+        "text": "at least eight years of relevant experience.",
+        "passed": true,
+        "evidence": {
+          "classification": "mandatory",
+          "sourceSentence": "The Level 2 profile requires at least two years in a CTM position at a CRO, a relevant bachelor's degree and at least eight years of relevant experience."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J10:1"
+      },
+      {
+        "id": "J11",
+        "type": "job_requirement",
+        "text": "Two years of monitoring is strongly preferred.",
+        "passed": true,
+        "evidence": {
+          "classification": "preferred",
+          "sourceSentence": "Two years of monitoring is strongly preferred."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J11:1"
+      },
+      {
+        "id": "J12",
+        "type": "job_requirement",
+        "text": "Complex or global trial management",
+        "passed": true,
+        "evidence": {
+          "classification": "preferred",
+          "sourceSentence": "Complex or global trial management, start-up through database-lock experience and mentoring other CTMs are preferred."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J12:1"
+      },
+      {
+        "id": "J13",
+        "type": "job_requirement",
+        "text": "start-up through database-lock experience",
+        "passed": true,
+        "evidence": {
+          "classification": "preferred",
+          "sourceSentence": "Complex or global trial management, start-up through database-lock experience and mentoring other CTMs are preferred."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J13:1"
+      },
+      {
+        "id": "J14",
+        "type": "job_requirement",
+        "text": "mentoring other CTMs are preferred.",
+        "passed": true,
+        "evidence": {
+          "classification": "preferred",
+          "sourceSentence": "Complex or global trial management, start-up through database-lock experience and mentoring other CTMs are preferred."
+        },
+        "limitation": "This is the supplied JD, not a claim the public vacancy is open.",
+        "auditKey": "CTM:J14:1"
+      },
+      {
+        "id": "T1",
+        "type": "reported_role_duration",
+        "text": "Four years as a site CRC",
+        "passed": true,
+        "evidence": {
+          "value": 4,
+          "unit": "years",
+          "months": 48,
+          "family": "crc"
+        },
+        "limitation": "Job-title tenure is not independent-monitoring or qualifying CTM tenure.",
+        "auditKey": "CTM:T1:1"
+      },
+      {
+        "id": "T2",
+        "type": "reported_role_duration",
+        "text": "three years as a CRO CRA",
+        "passed": true,
+        "evidence": {
+          "value": 3,
+          "unit": "years",
+          "months": 36,
+          "family": "cra"
+        },
+        "limitation": "Job-title tenure is not independent-monitoring or qualifying CTM tenure.",
+        "auditKey": "CTM:T2:1"
+      },
+      {
+        "id": "T3",
+        "type": "reported_role_duration",
+        "text": "18 months as an Associate CTM at a CRO.",
+        "passed": true,
+        "evidence": {
+          "value": 18,
+          "unit": "months",
+          "months": 18,
+          "family": "associate_ctm"
+        },
+        "limitation": "Job-title tenure is not independent-monitoring or qualifying CTM tenure.",
+        "auditKey": "CTM:T3:1"
+      },
+      {
+        "id": "sum",
+        "type": "derived_arithmetic",
+        "text": "102 stated months / 12 = 8.5 years",
+        "passed": true,
+        "evidence": {
+          "operands": [
+            "T1",
+            "T2",
+            "T3"
+          ]
+        },
+        "limitation": "Overlaps and employer relevance are unverified.",
+        "auditKey": "CTM:sum:1"
+      },
+      {
+        "id": "displayed-duration-summary",
+        "type": "derived_arithmetic",
+        "text": {
+          "listedRoleMonths": 102,
+          "listedRoleYears": 8.5,
+          "independentMonitoringMonths": null,
+          "qualifyingCtmMonths": null,
+          "caveat": "The arithmetic sums stated role durations only. Overlaps, employer relevance, independent monitoring duration and qualifying CTM tenure require separate confirmation."
+        },
+        "passed": true,
+        "evidence": {
+          "source": "validated role-duration operands"
+        },
+        "limitation": "",
+        "auditKey": "CTM:displayed-duration-summary:1"
+      },
+      {
+        "id": "independent-duration",
+        "type": "unknown",
+        "text": null,
+        "passed": true,
+        "evidence": {
+          "reason": "No explicitly quantified independent monitoring period."
+        },
+        "limitation": "",
+        "auditKey": "CTM:independent-duration:1"
+      },
+      {
+        "id": "qualifying-ctm-duration",
+        "type": "unknown",
+        "text": null,
+        "passed": true,
+        "evidence": {
+          "reason": "No employer-confirmed qualifying CTM tenure is supplied."
+        },
+        "limitation": "",
+        "auditKey": "CTM:qualifying-ctm-duration:1"
+      },
+      {
+        "id": "K1",
+        "type": "clinical_interpretation",
+        "text": "Budget-tracker support is documented; budget ownership and approval authority are not established. The JD’s oversight duty does not itself prove negotiation is mandatory.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J1",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C7"
+          ],
+          "rule": "budget_oversight"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K1:1"
+      },
+      {
+        "id": "K2",
+        "type": "clinical_interpretation",
+        "text": "Reviewing reports or trackers does not establish monitoring-plan authorship or accountability.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J2",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C6"
+          ],
+          "rule": "monitoring_plan"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K2:1"
+      },
+      {
+        "id": "K3",
+        "type": "clinical_interpretation",
+        "text": "CRA follow-up, CRA training and mentoring other CTMs are different responsibilities; one does not establish the others.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J3",
+          "classification": "responsibility",
+          "candidateIds": [],
+          "rule": "cra_mentoring"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K3:1"
+      },
+      {
+        "id": "K4",
+        "type": "clinical_interpretation",
+        "text": "Supporting a Phase III study or maintaining enrollment trackers does not establish start-up participation or end-to-end leadership.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J4",
+          "classification": "responsibility",
+          "candidateIds": [],
+          "rule": "startup"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K4:1"
+      },
+      {
+        "id": "K5",
+        "type": "clinical_interpretation",
+        "text": "Trip-report review is a documented operational competency when explicitly stated; it does not establish overall trial accountability.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J5",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C6"
+          ],
+          "rule": "trip_review"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K5:1"
+      },
+      {
+        "id": "K6",
+        "type": "clinical_interpretation",
+        "text": "Query escalation or trip-report review alone does not establish CAPA authorship or ownership.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J6",
+          "classification": "responsibility",
+          "candidateIds": [],
+          "rule": "capa"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K6:1"
+      },
+      {
+        "id": "K7",
+        "type": "clinical_interpretation",
+        "text": "Follow-up and meeting summaries can show operational contribution; they do not establish sponsor negotiation or vendor authority.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J7",
+          "classification": "responsibility",
+          "candidateIds": [
+            "C6"
+          ],
+          "rule": "stakeholders"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K7:1"
+      },
+      {
+        "id": "K8",
+        "type": "clinical_interpretation",
+        "text": "The intake lists 18 months in Associate CTM roles. An explicitly titled CTM duration is not supplied. Qualifying CTM tenure is unverified; title equivalence to the 24-month requirement needs employer confirmation.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J8",
+          "classification": "mandatory",
+          "candidateIds": [
+            "C4"
+          ],
+          "rule": "ctm_tenure"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K8:1"
+      },
+      {
+        "id": "K9",
+        "type": "clinical_interpretation",
+        "text": "A degree is reported in the intake. Credential equivalence and the employer’s acceptance remain unverified.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J9",
+          "classification": "mandatory",
+          "candidateIds": [
+            "C3"
+          ],
+          "rule": "education"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K9:1"
+      },
+      {
+        "id": "K10",
+        "type": "clinical_interpretation",
+        "text": "The listed clinical-role durations sum to 102 months (8.5 years), before checking overlaps and employer relevance. This sum does not establish qualifying CTM or independent monitoring tenure.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J10",
+          "classification": "mandatory",
+          "candidateIds": [
+            "C4"
+          ],
+          "rule": "total_experience"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K10:1"
+      },
+      {
+        "id": "K11",
+        "type": "clinical_interpretation",
+        "text": "The intake lists 36 months in CRA roles. That does not establish 24 months actually spent monitoring; this is a preferred criterion.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J11",
+          "classification": "preferred",
+          "candidateIds": [
+            "C4"
+          ],
+          "rule": "monitoring_tenure"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K11:1"
+      },
+      {
+        "id": "K12",
+        "type": "clinical_interpretation",
+        "text": "U.S. study participation does not establish global-trial leadership. Missing global scope is not proof of ineligibility for a preferred criterion.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J12",
+          "classification": "preferred",
+          "candidateIds": [
+            "C8"
+          ],
+          "rule": "global_trial"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K12:1"
+      },
+      {
+        "id": "K13",
+        "type": "clinical_interpretation",
+        "text": "Start-up participation and accountable delivery through database lock are distinct. End-to-end accountability is not established by a support title.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J13",
+          "classification": "preferred",
+          "candidateIds": [
+            "C8"
+          ],
+          "rule": "end_to_end"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K13:1"
+      },
+      {
+        "id": "K14",
+        "type": "clinical_interpretation",
+        "text": "Mentoring CTMs is not established by coordinating CRA follow-up. Keep this preference distinct from mandatory experience.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J14",
+          "classification": "preferred",
+          "candidateIds": [
+            "C8"
+          ],
+          "rule": "ctm_mentoring"
+        },
+        "limitation": "Rule-based interpretation requires independent human clinical review.",
+        "auditKey": "CTM:K14:1"
+      },
+      {
+        "id": "E1",
+        "type": "employer_fact",
+        "text": "The inspected applicant AI policy restricts misrepresentation of skills or experience.",
+        "passed": true,
+        "evidence": {
+          "sourceId": "S3",
+          "url": "https://careers.iconplc.com/ai-usage-policy-for-job-applicants",
+          "contentSHA256": "a596967ad5c06d780412f876f6e44b326a6a938a3dde1d1f95f87d18d0c8ee1c",
+          "quote": "inaccurately portrays one's skills, experiences, or qualifications",
+          "checkedAt": "2026-10-29T11:51:33.717Z"
+        },
+        "limitation": "An excerpt supports its limited claim, not private hiring practices.",
+        "auditKey": "CTM:E1:1"
+      },
+      {
+        "id": "displayed-employer-1",
+        "type": "compiled_employer_claim",
+        "text": "The inspected applicant AI policy restricts misrepresentation of skills or experience.",
+        "passed": true,
+        "evidence": {
+          "factId": "E1"
+        },
+        "limitation": "",
+        "auditKey": "CTM:displayed-employer-1:1"
+      },
+      {
+        "id": "finding-1",
+        "type": "compiled_interpretation",
+        "text": "The intake lists 18 months in Associate CTM roles. An explicitly titled CTM duration is not supplied. Qualifying CTM tenure is unverified; title equivalence to the 24-month requirement needs employer confirmation.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K8"
+        },
+        "limitation": "",
+        "auditKey": "CTM:finding-1:1"
+      },
+      {
+        "id": "finding-2",
+        "type": "compiled_interpretation",
+        "text": "The listed clinical-role durations sum to 102 months (8.5 years), before checking overlaps and employer relevance. This sum does not establish qualifying CTM or independent monitoring tenure.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K10"
+        },
+        "limitation": "",
+        "auditKey": "CTM:finding-2:1"
+      },
+      {
+        "id": "finding-3",
+        "type": "compiled_interpretation",
+        "text": "Budget-tracker support is documented; budget ownership and approval authority are not established. The JD’s oversight duty does not itself prove negotiation is mandatory.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K1"
+        },
+        "limitation": "",
+        "auditKey": "CTM:finding-3:1"
+      },
+      {
+        "id": "display-K8",
+        "type": "displayed_evidence",
+        "text": "The Level 2 profile requires at least two years in a CTM position at a CRO",
+        "passed": true,
+        "evidence": {
+          "jobId": "J8",
+          "candidateIds": [
+            "C4"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K8:1"
+      },
+      {
+        "id": "display-K9",
+        "type": "displayed_evidence",
+        "text": "a relevant bachelor's degree",
+        "passed": true,
+        "evidence": {
+          "jobId": "J9",
+          "candidateIds": [
+            "C3"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K9:1"
+      },
+      {
+        "id": "display-K10",
+        "type": "displayed_evidence",
+        "text": "at least eight years of relevant experience.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J10",
+          "candidateIds": [
+            "C4"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K10:1"
+      },
+      {
+        "id": "display-K1",
+        "type": "displayed_evidence",
+        "text": "Responsibilities include clinical budget oversight",
+        "passed": true,
+        "evidence": {
+          "jobId": "J1",
+          "candidateIds": [
+            "C7"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K1:1"
+      },
+      {
+        "id": "display-K7",
+        "type": "displayed_evidence",
+        "text": "and sponsor/vendor/cross-functional relationships.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J7",
+          "candidateIds": [
+            "C6"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K7:1"
+      },
+      {
+        "id": "display-K1",
+        "type": "displayed_evidence",
+        "text": "Responsibilities include clinical budget oversight",
+        "passed": true,
+        "evidence": {
+          "jobId": "J1",
+          "candidateIds": [
+            "C7"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K1:2"
+      },
+      {
+        "id": "display-K2",
+        "type": "displayed_evidence",
+        "text": "monitoring plans",
+        "passed": true,
+        "evidence": {
+          "jobId": "J2",
+          "candidateIds": [
+            "C6"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K2:1"
+      },
+      {
+        "id": "display-K3",
+        "type": "displayed_evidence",
+        "text": "CRA training and mentoring",
+        "passed": true,
+        "evidence": {
+          "jobId": "J3",
+          "candidateIds": []
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K3:1"
+      },
+      {
+        "id": "display-K4",
+        "type": "displayed_evidence",
+        "text": "study start-up and enrollment timelines",
+        "passed": true,
+        "evidence": {
+          "jobId": "J4",
+          "candidateIds": []
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K4:1"
+      },
+      {
+        "id": "display-K5",
+        "type": "displayed_evidence",
+        "text": "trip-report review",
+        "passed": true,
+        "evidence": {
+          "jobId": "J5",
+          "candidateIds": [
+            "C6"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K5:1"
+      },
+      {
+        "id": "display-K6",
+        "type": "displayed_evidence",
+        "text": "corrective and preventive actions",
+        "passed": true,
+        "evidence": {
+          "jobId": "J6",
+          "candidateIds": []
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K6:1"
+      },
+      {
+        "id": "display-K7",
+        "type": "displayed_evidence",
+        "text": "and sponsor/vendor/cross-functional relationships.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J7",
+          "candidateIds": [
+            "C6"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K7:2"
+      },
+      {
+        "id": "display-K8",
+        "type": "displayed_evidence",
+        "text": "The Level 2 profile requires at least two years in a CTM position at a CRO",
+        "passed": true,
+        "evidence": {
+          "jobId": "J8",
+          "candidateIds": [
+            "C4"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K8:2"
+      },
+      {
+        "id": "display-K9",
+        "type": "displayed_evidence",
+        "text": "a relevant bachelor's degree",
+        "passed": true,
+        "evidence": {
+          "jobId": "J9",
+          "candidateIds": [
+            "C3"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K9:2"
+      },
+      {
+        "id": "display-K10",
+        "type": "displayed_evidence",
+        "text": "at least eight years of relevant experience.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J10",
+          "candidateIds": [
+            "C4"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K10:2"
+      },
+      {
+        "id": "display-K11",
+        "type": "displayed_evidence",
+        "text": "Two years of monitoring is strongly preferred.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J11",
+          "candidateIds": [
+            "C4"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K11:1"
+      },
+      {
+        "id": "display-K12",
+        "type": "displayed_evidence",
+        "text": "Complex or global trial management",
+        "passed": true,
+        "evidence": {
+          "jobId": "J12",
+          "candidateIds": [
+            "C8"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K12:1"
+      },
+      {
+        "id": "display-K13",
+        "type": "displayed_evidence",
+        "text": "start-up through database-lock experience",
+        "passed": true,
+        "evidence": {
+          "jobId": "J13",
+          "candidateIds": [
+            "C8"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K13:1"
+      },
+      {
+        "id": "display-K14",
+        "type": "displayed_evidence",
+        "text": "mentoring other CTMs are preferred.",
+        "passed": true,
+        "evidence": {
+          "jobId": "J14",
+          "candidateIds": [
+            "C8"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:display-K14:1"
+      },
+      {
+        "id": "action-1",
+        "type": "registered_action",
+        "text": "Ask whether the exact title, dates and documented decision authority qualify; do not substitute aggregate clinical experience for CTM tenure.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K8"
+        },
+        "limitation": "",
+        "auditKey": "CTM:action-1:1"
+      },
+      {
+        "id": "action-2",
+        "type": "registered_action",
+        "text": "Verify dates and which roles the employer counts toward the relevant-experience minimum.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K10"
+        },
+        "limitation": "",
+        "auditKey": "CTM:action-2:1"
+      },
+      {
+        "id": "action-3",
+        "type": "registered_action",
+        "text": "Clarify who forecast, recommended, approved and signed off; describe only personal authority.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K1"
+        },
+        "limitation": "",
+        "auditKey": "CTM:action-3:1"
+      },
+      {
+        "id": "action-4",
+        "type": "registered_action",
+        "text": "Clarify which relationships and decisions were personally handled.",
+        "passed": true,
+        "evidence": {
+          "ruleId": "K7"
+        },
+        "limitation": "",
+        "auditKey": "CTM:action-4:1"
+      },
+      {
+        "id": "selection",
+        "type": "recommendation_selection",
+        "text": {
+          "priority_ids": [
+            "K8",
+            "K10",
+            "K1"
+          ],
+          "action_ids": [
+            "K8",
+            "K10",
+            "K1",
+            "K7"
+          ],
+          "practice_ids": [
+            "P-ownership",
+            "P-budget",
+            "P-startup",
+            "P-quality"
+          ]
+        },
+        "passed": true,
+        "evidence": {
+          "allowedCardIds": [
+            "K1",
+            "K2",
+            "K3",
+            "K4",
+            "K5",
+            "K6",
+            "K7",
+            "K8",
+            "K9",
+            "K10",
+            "K11",
+            "K12",
+            "K13",
+            "K14"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:selection:1"
+      },
+      {
+        "id": "complete-register",
+        "type": "requirement_completeness",
+        "text": [
+          "J1",
+          "J2",
+          "J3",
+          "J4",
+          "J5",
+          "J6",
+          "J7",
+          "J8",
+          "J9",
+          "J10",
+          "J11",
+          "J12",
+          "J13",
+          "J14"
+        ],
+        "passed": true,
+        "evidence": {
+          "expected": [
+            "J1",
+            "J2",
+            "J3",
+            "J4",
+            "J5",
+            "J6",
+            "J7",
+            "J8",
+            "J9",
+            "J10",
+            "J11",
+            "J12",
+            "J13",
+            "J14"
+          ]
+        },
+        "limitation": "",
+        "auditKey": "CTM:complete-register:1"
+      },
+      {
+        "id": "P-ownership",
+        "type": "inferred_practice",
+        "text": "Which decisions did you personally make, and which remained with the CTM or study lead?",
+        "passed": true,
+        "evidence": {
+          "candidateIds": [
+            "C6"
+          ],
+          "jobIds": [
+            "J8"
+          ]
+        },
+        "limitation": "Practice theme only; no employer question or past candidate event is asserted.",
+        "auditKey": "CTM:P-ownership:1"
+      },
+      {
+        "id": "P-budget",
+        "type": "inferred_practice",
+        "text": "How would you handle a budget variance when you do not have approval authority?",
+        "passed": true,
+        "evidence": {
+          "candidateIds": [
+            "C7"
+          ],
+          "jobIds": [
+            "J1"
+          ]
+        },
+        "limitation": "Practice theme only; no employer question or past candidate event is asserted.",
+        "auditKey": "CTM:P-budget:1"
+      },
+      {
+        "id": "P-startup",
+        "type": "inferred_practice",
+        "text": "How would you plan start-up milestones for a study you had not previously led?",
+        "passed": true,
+        "evidence": {
+          "candidateIds": [],
+          "jobIds": [
+            "J4"
+          ]
+        },
+        "limitation": "Practice theme only; no employer question or past candidate event is asserted.",
+        "auditKey": "CTM:P-startup:1"
+      },
+      {
+        "id": "P-quality",
+        "type": "inferred_practice",
+        "text": "How would you turn a trip-report issue into a tracked follow-up?",
+        "passed": true,
+        "evidence": {
+          "candidateIds": [
+            "C6"
+          ],
+          "jobIds": [
+            "J5",
+            "J6"
+          ]
+        },
+        "limitation": "Practice theme only; no employer question or past candidate event is asserted.",
+        "auditKey": "CTM:P-quality:1"
+      }
+    ],
+    "semanticLimitations": [
+      "Combined start-up/enrollment requirement is preserved but interpretation covers start-up, underusing documented enrollment tracking.",
+      "Complex-or-global preference is preserved but interpretation discusses global scope only. Experience is not the same as accountable ownership.",
+      "Exact target posting returned 404; supplied paraphrase is not independently verified current employer wording."
+    ]
+  }
+]
