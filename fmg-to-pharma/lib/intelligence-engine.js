@@ -126,6 +126,10 @@ export function gatewayClient({env=process.env,fetchImpl=fetch,onStage=()=>{},be
   return {ask,calls,models};
 }
 export async function runIntelligence(input, {env = process.env, fetchImpl = fetch, now = () => new Date().toISOString(), onStage = () => {}, onDraft = () => {}, onPacket=()=>{}, sourceLoader=readPublicPage,beforeRequest=()=>{}} = {}) {
+  if(env.FMG_ENGINE_PROFILE==='evidence-first-feasibility') {
+    const {runEvidenceFirst}=await import('./evidence-first/pipeline.js');
+    return runEvidenceFirst(input,{env,fetchImpl,now,onStage,onDraft,onPacket,sourceLoader,beforeRequest});
+  }
   ensure(PACKAGES[input.packageId], 'Unknown package.');
   const client=gatewayClient({env,fetchImpl,onStage,beforeRequest});
   const intake=validateIntake(input,input.packageId), catalogue=evidenceCatalogue(intake), started=Date.now();

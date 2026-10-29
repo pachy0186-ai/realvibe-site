@@ -1,6 +1,6 @@
 // Model content is rendered only as text; never insert model-generated HTML.
 export function renderReport(host, draft) {
-  if(draft?.engineVersion==='0.3.0-evidence-bound') return renderEvidenceReport(host,draft);
+  if(['0.3.0-evidence-bound','0.4.0-evidence-first'].includes(draft?.engineVersion)) return renderEvidenceReport(host,draft);
   host.replaceChildren();
   const a = draft?.analysis; if (!a) return;
   const text = (tag, value, parent = host) => {const node = document.createElement(tag);node.textContent = String(value ?? '');parent.append(node);return node;};
@@ -57,6 +57,7 @@ function renderEvidenceReport(host,draft) {
   const prepared=new Intl.DateTimeFormat('en-US',{dateStyle:'long',timeZone:'America/New_York'}).format(new Date(draft.researchedAt));
   text('p',`Prepared ${prepared} (Eastern Time). Based on your supplied job description and intake; a public posting may have changed or closed.`);
   if(draft.qualityFlags.length) text('p','Draft requires corrections before approval or delivery.');
+  if(draft.humanReview) text('p',`Human clinical review: ${draft.humanReview.status}. Automated checks do not approve this report for a customer.`);
   text('h3','Three findings that matter');
   for(const finding of a.critical_findings) {const n=card();text('h4',finding.heading,n);text('p',finding.interpretation,n);evidence(finding.references,n);}
   text('h3','Your next decision');text('strong',a.executive_verdict.recommendation);text('p',a.executive_verdict.summary);
@@ -65,19 +66,20 @@ function renderEvidenceReport(host,draft) {
   text('h3','Evidence against the role');
   const labels={mandatory:'Mandatory in the supplied description',preferred:'Preferred in the supplied description',responsibility:'Role responsibility',constraint:'Stated constraint',mixed_requires_review:'Requirement classification needs review'};
   for(const row of a.evidence_map){const n=card();text('h4',row.driver,n);text('strong',labels[row.classification] || 'Classification not established',n);
-    text('p',({strong:'Supported by intake',partial:'Partly supported',missing:'Not established'})[row.strength],n);
+    text('p',({strong:'Reported evidence; scope and acceptance still need review',partial:'Partly documented',missing:'Needs clarification; not proof of ineligibility'})[row.strength],n);
     if(row.candidate_quotes.length) for(const quote of row.candidate_quotes) text('blockquote',quote,n);else text('p','No supporting candidate excerpt supplied.',n);
     text('p',`Interpretation: ${row.risk}`,n);text('p',`Next step: ${row.action}`,n);
   }
   text('h3','Employer evidence and its implications');
   if(!a.company_intelligence.length) text('p','No employer-specific factual excerpt met the verification rules. Use the limitations below before acting.');
-  for(const fact of a.company_intelligence){const n=card();text('strong','Inspected source excerpt',n);text('blockquote',fact.finding,n);text('p',`Professional interpretation: ${fact.why_it_matters}`,n);
+  for(const fact of a.company_intelligence){const n=card();text('strong',fact.source_quote?'Verified source statement':'Inspected source excerpt',n);text('p',fact.finding,n);if(fact.source_quote)text('blockquote',fact.source_quote,n);text('p',`Professional interpretation: ${fact.why_it_matters}`,n);
     for(const url of fact.source_urls){const source=a.source_index.find(s=>s.url===url);link(url,source?.title || 'Read the source',n);}
   }
   if(a.interview_map.length){text('h3','Practice for this opportunity');text('p','These are our preparation themes, not confirmed employer questions. Answer from actual experience; label hypothetical approaches clearly.');
     for(const practice of a.interview_map){const n=card();text('h4',practice.question,n);text('p',practice.answer_strategy,n);text('p',`Intake evidence: ${practice.best_candidate_evidence}`,n);text('p',`Still needed: ${practice.missing_info}`,n);}
   }
   text('h3','What to clarify');const questions=text('ul','');for(const q of a.clarification_questions)text('li',`${q.question} ${q.why_needed}`,questions);
+  if(draft.fullRequirementRegister){const register=text('details','');text('summary','Read the complete supplied requirement register',register);for(const row of draft.fullRequirementRegister){const n=card();register.append(n);text('h4',row.driver,n);text('strong',labels[row.classification]||row.classification,n);text('p',row.risk,n);text('p',`Next step: ${row.action}`,n);}}
   text('h3','Sources and limits');
   for(const source of a.source_index){const n=text('p','');link(source.url,source.title,n);text('span',` — ${source.date}`,n);}
   if(draft.policy) {const n=text('p','');link(draft.policy.url,'Read the inspected applicant AI-use policy',n);}

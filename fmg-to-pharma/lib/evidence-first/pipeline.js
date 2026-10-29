@@ -1,0 +1,35 @@
+import {gatewayClient,parseJSON} from '../intelligence-engine.js';
+import {validateIntake,ensure} from '../pilot-domain.js';
+import {extractJob} from './job-extraction.js';
+import {extractCandidate} from './candidate-extraction.js';
+import {researchEmployer} from './employer-research.js';
+import {interpretCompetencies} from './competency-rules.js';
+import {practiceLibrary,selectionFormat,selectionPrompt} from './recommendation-generation.js';
+import {compileReport} from './report-compilation.js';
+import {validateIndependentClaims} from './claim-validation.js';
+export async function runEvidenceFirst(input,options={}) {
+  const {env=process.env,now=()=>new Date().toISOString(),onPacket=()=>{},onDraft=()=>{},sourceLoader,...gatewayOptions}=options;
+  ensure(env.VERCEL_ENV==='preview'&&env.FMG_AI_PROFILE==='free-credit-validation','Evidence-first feasibility is limited to the free-credit preview profile.');
+  const intake=validateIntake(input,input.packageId),started=Date.now();
+  const job=extractJob(intake),candidate=extractCandidate(intake);
+  ensure(job.units.length>=3,'The supplied job description lacks enough explicit requirements.');
+  const research=await researchEmployer(intake,job,{...(sourceLoader?{load:sourceLoader}:{}),now});
+  const interpretation=interpretCompetencies(job,candidate),practice=practiceLibrary(job,candidate);
+  const packet={intake,job,candidate,research,interpretation,practice};onPacket(packet);
+  ensure(research.conflicts.length===0,'Deterministic source preflight failed; no AI credits consumed: '+research.conflicts.join(' '));
+  const format=selectionFormat(interpretation,practice,input.packageId);
+  const preselection={priority_ids:format.schema.properties.priority_ids.items.enum.slice(0,3),action_ids:format.schema.properties.priority_ids.items.enum.slice(0,3),practice_ids:input.packageId==='interview'?practice.slice(0,3).map(p=>p.id):[]};
+  const preflight=validateIndependentClaims(compileReport(intake,{...packet,selection:preselection},now()),{...intake,packageId:input.packageId},{...packet,selection:preselection});
+  ensure(preflight.passed,'Deterministic evidence preflight failed; no AI credits consumed: '+preflight.errors.join(' '));
+  const client=gatewayClient({env,...gatewayOptions});
+  const result=await client.ask(selectionPrompt(job,candidate,interpretation,research,practice,input.packageId),{format,stage:'recommendation_ranking'});
+  const selection=parseJSON(result.text);onDraft(selection);
+  ensure(selection.priority_ids?.length===3&&selection.action_ids?.length>=3,'Ranking did not produce the required selection.');
+  ensure([...selection.priority_ids,...selection.action_ids].every(id=>interpretation.cards.some(c=>c.id===id))&&selection.practice_ids?.every(id=>practice.some(p=>p.id===id)),'Unknown recommendation or practice ID.');
+  const stages={...packet,selection};
+  const draft=compileReport(intake,stages,now());
+  const validation=validateIndependentClaims(draft,{...intake,packageId:input.packageId},stages);
+  draft.qualityFlags=validation.errors;draft.claimAudit=validation.claims;draft.humanReview=validation.humanReview;draft.automatedValidation={passed:validation.passed,notAHumanApproval:true};
+  draft.telemetry={durationMs:Date.now()-started,calls:client.calls,costUSD:null,costNote:'Reconcile the captured generation ID with Gateway billing.'};
+  return draft;
+}

@@ -85,10 +85,12 @@ export function approveReport(order, review, now) {
   ensure(review && typeof review === 'object', 'Founder review is required.');
   ensure(order.status === 'review_required' && order.draft, 'A draft awaiting review is required.');
   ensure(order.draft.qualityFlags.length === 0, 'Resolve report quality flags before approval.');
+  if(order.draft.engineVersion==='0.4.0-evidence-first') ensure(review.humanClinicalReviewerAttestation===true,'A qualified independent human clinical reviewer must explicitly attest before approval.');
   ensure(REVIEW_CHECKS.every(key => review.checks?.[key] === true), 'Complete every founder review check.');
   const next = changed(order, now, 'founder_approved');
   next.review = {reviewer: clean(review.reviewer, 2, 80, 'Reviewer'), note: clean(review.note, 10, 2000, 'Review note'),
     checks: Object.fromEntries(REVIEW_CHECKS.map(k => [k, true])), approvedAt: now};
+  if(next.draft.engineVersion==='0.4.0-evidence-first') next.draft.humanReview={...next.draft.humanReview,status:'attested',reviewer:next.review.reviewer,reviewedAt:now,qualifiedClinicalReviewerAttestation:true};
   if (review.minutes !== undefined && review.minutes !== '') {
     ensure(Number.isFinite(Number(review.minutes)) && Number(review.minutes) > 0 && Number(review.minutes) <= 480, 'Enter valid review minutes.');
     next.review.minutes = Number(review.minutes);
