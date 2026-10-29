@@ -29,6 +29,6 @@ test('responsive QA route is absent in production and exercises all seventeen pa
 test('actual report comparison is fictional preview-only content and never enables model calls',()=>{
  const previous=process.env.VERCEL_ENV;
  try {process.env.VERCEL_ENV='production';const closed=response();qa({url:'/?view=reports'},closed);assert.equal(closed.code,404);
- process.env.VERCEL_ENV='preview';const open=response();qa({url:'/?view=reports'},open);assert.equal(open.code,200);assert.ok(open.body.includes('both products are NO-GO'));assert.ok(open.body.includes('/logo.png'));assert.ok(!open.body.includes('VERCEL_OIDC_TOKEN'));assert.ok(!open.body.includes('ai-gateway.vercel.sh'));
+ process.env.VERCEL_ENV='preview';const open=response();qa({url:'/?view=reports'},open);assert.equal(open.code,200);assert.ok(open.body.includes('NO-GO for automated sale'));assert.ok(open.body.includes('human clinical review is pending'));assert.ok(open.body.includes('/logo.png'));assert.ok(!open.body.includes('VERCEL_OIDC_TOKEN'));assert.ok(!open.body.includes('ai-gateway.vercel.sh'));
  } finally {if(previous===undefined)delete process.env.VERCEL_ENV;else process.env.VERCEL_ENV=previous;}
 });
