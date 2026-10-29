@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test ../tests/*.test.mjs"
+    "test": "node --test ../tests/*.test.mjs",
+    "vercel-build": "node lib/gateway-build-audit.mjs"
   },
   "dependencies": {
     "nodemailer": "10.2.1",

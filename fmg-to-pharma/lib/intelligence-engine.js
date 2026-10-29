@@ -1,6 +1,7 @@
 import {z} from 'zod';
 import {researchPrompt, synthesisPrompt} from './intelligence-prompts.js';
 import {ensure, validateIntake, PACKAGES} from './pilot-domain.js';
+import {gatewayFailure, resolveModels} from './gateway-access.js';
 
 export const ENGINE_VERSION = '0.2.0-recovered-grounding-review';
 const GATEWAY = 'https://ai-gateway.vercel.sh/v1/responses';
@@ -80,9 +81,7 @@ export async function runIntelligence(input, {env = process.env, fetchImpl = fet
   const intake = validateIntake(input, input.packageId);
   const token = env.AI_GATEWAY_API_KEY || env.VERCEL_OIDC_TOKEN;
   ensure(token, 'AI Gateway authentication is unavailable.');
-  // Both identifiers were verified in the live catalog; retain the prototype's model choices.
-  const models = {research: env.FMG_RESEARCH_MODEL || 'openai/gpt-5.4-mini', synthesis: env.FMG_SYNTHESIS_MODEL || 'openai/gpt-5.4-fast'};
-  ensure(Object.values(models).every(id => ['openai/gpt-5.4-mini', 'openai/gpt-5.4-fast'].includes(id)), 'Model must pass the reviewed allowlist.');
+  const models = resolveModels(env);
   const started = Date.now(); const calls = [];
   async function ask(model, prompt, web) {
     const body = {model, input: prompt, store: false, reasoning: {effort: 'medium'},
@@ -92,7 +91,7 @@ export async function runIntelligence(input, {env = process.env, fetchImpl = fet
     const response = await fetchImpl(GATEWAY, {method: 'POST', headers: {authorization: `Bearer ${token}`, 'content-type': 'application/json'},
       body: JSON.stringify(body), signal: AbortSignal.timeout(80000), cache: 'no-store'});
     const data = await response.json();
-    ensure(response.ok, response.status === 403 ? 'AI Gateway billing verification is required.' : `AI Gateway request failed (${response.status}).`);
+    if (!response.ok) throw gatewayFailure(response.status, data);
     ensure(data.status !== 'incomplete', 'Model output was incomplete; retry only after reviewing cost and limits.');
     calls.push({model, inputTokens: data.usage?.input_tokens ?? null, outputTokens: data.usage?.output_tokens ?? null});
     return {text: responseText(data), urls: retrievedURLs(data)};
