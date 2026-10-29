@@ -54,7 +54,8 @@ function renderEvidenceReport(host,draft) {
     if(!refs.candidate_ids?.length) text('p','No candidate evidence is established by this finding.',details);
   };
   text('h2',`${a.target.company} · ${a.target.role}`);
-  text('p',`Prepared ${draft.researchedAt.slice(0,10)}. Based on your supplied job description and intake; a public posting may have changed or closed.`);
+  const prepared=new Intl.DateTimeFormat('en-US',{dateStyle:'long',timeZone:'America/New_York'}).format(new Date(draft.researchedAt));
+  text('p',`Prepared ${prepared} (Eastern Time). Based on your supplied job description and intake; a public posting may have changed or closed.`);
   if(draft.qualityFlags.length) text('p','Draft requires corrections before approval or delivery.');
   text('h3','Three findings that matter');
   for(const finding of a.critical_findings) {const n=card();text('h4',finding.heading,n);text('p',finding.interpretation,n);evidence(finding.references,n);}

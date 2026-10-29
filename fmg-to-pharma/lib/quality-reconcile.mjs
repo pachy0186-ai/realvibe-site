@@ -13,6 +13,10 @@ if(process.env.VERCEL_ENV==='preview'&&process.env.VERCEL_GIT_COMMIT_REF==='code
     const sources=await verifySources([],'https://careers.iconplc.com/job/clinical-trial-manager-ii-biotech-united-states-remote-in-regional-united-states-pra-jid-36419');
     return {checkedAt:new Date().toISOString(),modelCalls:0,costs,credits,policyFallbackProbe:sources.map(({text,policyLinks,...metadata})=>metadata)};
   });
-  if(!once.reused) console.log(JSON.stringify({qualityReconciliation:once.result}));
+  if(!once.reused) {
+    for(const item of once.result.costs) {const d=item.data?.data;console.log(JSON.stringify({qualityCost:{case:item.case,stage:item.stage,id:item.id,status:item.status,costUSD:d?.total_cost,model:d?.model,latencyMs:d?.latency,inputTokens:d?.tokens_prompt,completionTokens:d?.tokens_completion,reasoningTokens:d?.native_tokens_reasoning,cachedTokens:d?.native_tokens_cached,webSearchCalls:d?.billable_web_search_calls}}));}
+    console.log(JSON.stringify({qualityBalance:once.result.credits}));
+    for(const record of once.result.policyFallbackProbe) console.log(JSON.stringify({qualityPolicyProbe:record}));
+  }
 }
 console.log('Read-only reconciliation complete; model auditing disabled.');

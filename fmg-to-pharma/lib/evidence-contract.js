@@ -94,7 +94,12 @@ export function validateQuality(raw,catalogue,sources,packageId) {
     if(typeof value==='string') {
       if(['next_action','question'].includes(key) && /\b(provide|request|supply|send|upload|collect|share)\b/i.test(value) && /\b(visit|monitoring)\s+(reports?|forms?)\b/i.test(value)) flags.push('Do not request confidential trial visit reports or forms; ask for a deidentified description.');
       if(['interpretation','reason','answer_plan','next_action'].includes(key) && !/[.!?]$/.test(value.trim())) flags.push('Narrative contains an unfinished sentence or clipped recommendation.');
-      if(catalogue.statedDurations.months>=96 && /\b(total|aggregate|combined|sum)[^.!?]{0,100}\b(less than|under|below)\s+(eight|8)\b/i.test(value)) flags.push('Experience arithmetic conflicts with the stated intake durations.');
+      const comparison=value.match(/\b(total|aggregate|combined|sum)[^.!?]{0,100}\b(less than|under|below|more than|over|above)\s+(\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\b/i);
+      if(comparison && /years|experience|durations/i.test(value)) {
+        const threshold=(numbers[comparison[3].toLowerCase()] ?? Number(comparison[3]))*12;
+        const under=/less than|under|below/i.test(comparison[2]);
+        if(under?catalogue.statedDurations.months>=threshold:catalogue.statedDurations.months<=threshold) flags.push('Experience arithmetic conflicts with the stated intake durations.');
+      }
     } else if(Array.isArray(value)) value.forEach(v=>narrative(v));
     else if(value && typeof value==='object') for(const [k,v] of Object.entries(value)) narrative(v,k);
   }
