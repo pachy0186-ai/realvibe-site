@@ -1,5 +1,11 @@
 (() => {
   const trackFmgEvent = (event, details = {}) => {
+    // Preserve existing guide behavior; the new video resource follows pilot consent.
+    if (document.body.dataset.requiresAnalyticsConsent === 'true') {
+      let allowed = false;
+      try { allowed = window.localStorage.getItem('fmg-pilot-analytics-choice') === 'on'; } catch { /* optional */ }
+      if (!allowed || navigator.globalPrivacyControl === true || navigator.doNotTrack === '1') return;
+    }
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event, ...details });
     window.dispatchEvent(new CustomEvent('fmg:analytics', { detail: { event, ...details } }));
@@ -14,6 +20,16 @@
 
   if (pageType === 'guide_article' && articleSlug) {
     trackFmgEvent('article_viewed', { page_type: 'guide_article', article_slug: articleSlug });
+  }
+
+  if (document.body.dataset.videoResource === 'true') {
+    trackFmgEvent('video_resource_viewed', { page_type: 'guide_article', article_slug: articleSlug });
+    window.addEventListener('fmg:video-request', (event) => {
+      if (!['iPMPtll-P3Q', 'MRPkx_-6n1s'].includes(event.detail?.video_id)) return;
+      trackFmgEvent('video_player_requested', {
+        page_type: 'guide_article', article_slug: articleSlug, video_id: event.detail.video_id,
+      });
+    });
   }
 
   document.querySelectorAll('[data-analytics]').forEach((link) => {
