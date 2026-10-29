@@ -12,6 +12,11 @@ export function requirementKind(text) {
   return 'context';
 }
 const sentences = value => [...new Intl.Segmenter('en',{granularity:'sentence'}).segment(value)].map(s=>s.segment.trim()).filter(Boolean);
+const numbers={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12};
+export function statedDurations(cv) {
+  const entries=[...cv.matchAll(/\b(\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\s+(years?|months?)\s+(?:as|in)\b/gi)].map(m=>({quote:m[0],months:(numbers[m[1].toLowerCase()] ?? Number(m[1]))*(m[2].toLowerCase().startsWith('year')?12:1)}));
+  return {entries,months:entries.reduce((sum,e)=>sum+e.months,0),basis:'Sum of stated durations only. Overlaps, relevance and qualifying CTM ownership require confirmation.'};
+}
 export function evidenceCatalogue(intake) {
   const jobs=[];
   for (const sentence of sentences(intake.jd)) {
@@ -22,7 +27,7 @@ export function evidenceCatalogue(intake) {
     for (const text of parts) if(text.trim()) jobs.push({id:`J${jobs.length+1}`,text:text.trim(),kind});
   }
   const candidates=sentences(intake.cv).map((text,index)=>({id:`C${index+1}`,text}));
-  return {company:intake.company,role:intake.role,jd:intake.jd,cv:intake.cv,jdSHA256:createHash('sha256').update(intake.jd).digest('hex'),cvSHA256:createHash('sha256').update(intake.cv).digest('hex'),jobs,candidates};
+  return {company:intake.company,role:intake.role,jd:intake.jd,cv:intake.cv,jdSHA256:createHash('sha256').update(intake.jd).digest('hex'),cvSHA256:createHash('sha256').update(intake.cv).digest('hex'),statedDurations:statedDurations(intake.cv),jobs,candidates};
 }
 export function qualityOutputFormat(catalogue,sources,packageId) {
   const text = maxLength=>({type:'string',maxLength});
@@ -82,7 +87,18 @@ export function validateQuality(raw,catalogue,sources,packageId) {
   }
   for(const [i,item] of raw.actions.entries()) refs(item.references,`A${i+1}`);
   const policy=sources.find(s=>s.kind==='applicant_ai_policy'&&s.status==='available'&&s.employerDomainMatch);
-  if(policy && !raw.employer_facts.some(f=>f.source_id===policy.id && /misrepresent|unedited|live interview|assessment|prohibit|unacceptable|must not/i.test(f.quote))) flags.push('Verified applicant AI policy restrictions were not addressed.');
+  if(policy && !raw.employer_facts.some(f=>f.source_id===policy.id && /misrepresent|inaccurately portrays|without personal modification|unedited|live interview|assessment|prohibit|unacceptable|must not/i.test(f.quote))) flags.push('Verified applicant AI policy restrictions were not addressed.');
+  const mandatory=catalogue.jobs.filter(j=>j.kind==='mandatory');
+  if(mandatory.some(j=>!raw.requirements.some(r=>r.job_id===j.id))) flags.push('Mandatory screening criteria are missing from the evidence map.');
+  function narrative(value,key='') {
+    if(typeof value==='string') {
+      if(['next_action','question'].includes(key) && /\b(provide|request|supply|send|upload|collect|share)\b/i.test(value) && /\b(visit|monitoring)\s+(reports?|forms?)\b/i.test(value)) flags.push('Do not request confidential trial visit reports or forms; ask for a deidentified description.');
+      if(['interpretation','reason','answer_plan','next_action'].includes(key) && !/[.!?]$/.test(value.trim())) flags.push('Narrative contains an unfinished sentence or clipped recommendation.');
+      if(catalogue.statedDurations.months>=96 && /\b(total|aggregate|combined|sum)[^.!?]{0,100}\b(less than|under|below)\s+(eight|8)\b/i.test(value)) flags.push('Experience arithmetic conflicts with the stated intake durations.');
+    } else if(Array.isArray(value)) value.forEach(v=>narrative(v));
+    else if(value && typeof value==='object') for(const [k,v] of Object.entries(value)) narrative(v,k);
+  }
+  narrative(raw);
   const generatedWords=JSON.stringify(raw).split(/\s+/).length;
   if(generatedWords>1250) flags.push('Generated report exceeds the concise review limit.');
   ensure(Array.isArray(raw.practice) && (packageId==='application'?raw.practice.length===0:raw.practice.length>=3&&raw.practice.length<=4),'Package deliverable boundary failed.');

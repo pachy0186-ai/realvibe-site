@@ -75,7 +75,8 @@ export async function verifySources(discovered, jobUrl, {load = readPublicPage, 
     const host=new URL(page.finalURL || url).hostname;
     const employerDomainMatch=!!employerDomain && (host===employerDomain || host.endsWith('.'+employerDomain));
     const expired=kind==='target_job' && /this (job|vacancy|position) (has expired|is no longer|is closed)|no longer accepting applications/i.test(page.text || '');
-    return {...page,id:`S${records.length+1}`,checkedAt:now(),kind,employerDomainMatch,...(expired?{status:'expired',reason:'The target posting is marked closed or expired.'}:{})};
+    const unrelatedPrivacy=kind==='employer_context' && /\/privacy(?:\/|$)|cookie-policy/i.test(url);
+    return {...page,id:`S${records.length+1}`,checkedAt:now(),kind,employerDomainMatch,...(expired?{status:'expired',reason:'The target posting is marked closed or expired.'}:{}),...(unrelatedPrivacy?{status:'irrelevant',reason:'A general privacy/cookie notice is not evidence of role-specific hiring expectations.'}:{})};
   };
   for (const url of candidates) {
     if(records.some(s=>s.url===url)) continue;
@@ -87,6 +88,15 @@ export async function verifySources(discovered, jobUrl, {load = readPublicPage, 
       const policy = await load(policyURL);records.push(record(policy,policyURL,'applicant_ai_policy'));
     }
     if (records.length>=5) break;
+  }
+  if(jobUrl && !records.some(s=>s.kind==='applicant_ai_policy'&&s.status==='available')) {
+    const origin=new URL('/',jobUrl).href;
+    const homepage=await load(origin);
+    const discovery=record(homepage,origin,'policy_discovery');
+    records.push({...discovery,status:'discovery_only',reason:'Used only to look for an observed applicant AI policy link.'});
+    for(const policyURL of homepage.policyLinks || []) if(!records.some(s=>s.url===policyURL)) {
+      const policy=await load(policyURL);records.push(record(policy,policyURL,'applicant_ai_policy'));break;
+    }
   }
   return records;
 }

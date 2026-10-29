@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {readFileSync} from 'node:fs';
 import {EventEmitter} from 'node:events';
-import {evidenceCatalogue,qualityOutputFormat,validateQuality,assembleQualityDraft,requirementKind} from '../fmg-to-pharma/lib/evidence-contract.js';
+import {evidenceCatalogue,qualityOutputFormat,validateQuality,assembleQualityDraft,requirementKind,statedDurations} from '../fmg-to-pharma/lib/evidence-contract.js';
 import {publicAddress,extractPage,readPublicPage,verifySources} from '../fmg-to-pharma/lib/source-verifier.js';
 import {validationBudget} from '../fmg-to-pharma/lib/validation-budget.js';
 import {gatewayClient} from '../fmg-to-pharma/lib/intelligence-engine.js';
@@ -83,4 +83,27 @@ test('the assignment credit reservation rejects extra calls and paid fallbacks b
 test('a failed live request is never retried automatically',async()=>{
   let calls=0;const client=gatewayClient({env:{FMG_AI_ENABLED:'true',FMG_AI_PROFILE:'free-credit-validation',VERCEL_OIDC_TOKEN:'fictional'},fetchImpl:async()=>{calls++;return {ok:false,status:429,json:async()=>({})};}});
   await assert.rejects(client.ask('QA'),/rate limit/);assert.equal(calls,1);
+});
+test('experience arithmetic and clipped narrative cannot pass just because the schema is valid',()=>{
+  assert.equal(statedDurations(cases[1].cv).months,102);
+  const cat=evidenceCatalogue(cases[1]),raw=fixtureQuality(cases[1],'interview');
+  raw.decision.interpretation='Total relevant years supplied sum to less than eight; aggregate years';
+  const result=validateQuality(raw,cat,[{...sources[0],url:cases[1].jobUrl}],'interview');
+  assert.ok(result.flags.some(f=>f.includes('arithmetic')));assert.ok(result.flags.some(f=>f.includes('unfinished')));
+});
+test('policy validator recognizes an exact misrepresentation restriction, and privacy notices are excluded',async()=>{
+  const raw=fixtureQuality(input),policy={...sources[0],kind:'applicant_ai_policy',text:"Submitting AI-generated content that inaccurately portrays one's skills, experiences, or qualifications."};
+  raw.employer_facts[0].quote=policy.text;
+  assert.ok(!validateQuality(raw,catalogue,[policy],'application').flags.some(f=>f.includes('policy restrictions')));
+  const rows=await verifySources(['https://careers.iconplc.com/privacy/business-professionals'],input.jobUrl,{load:async url=>({url,status:'available',text:'Public text',title:'Privacy',policyLinks:[]})});
+  assert.equal(rows.find(s=>s.url.includes('/privacy/')).status,'irrelevant');
+});
+test('a broken job URL can discover policy from an observed link on the employer careers homepage',async()=>{
+  const policyURL='https://careers.iconplc.com/observed-policy';
+  const rows=await verifySources([],input.jobUrl,{load:async url=>url===input.jobUrl?{url,status:'inaccessible',httpStatus:404}:{url,status:'available',title:url===policyURL?'AI Usage Policy for Applicants':'Careers',text:'Public employer content.',policyLinks:url===policyURL?[]:[policyURL]}});
+  assert.equal(rows.find(s=>s.kind==='applicant_ai_policy').url,policyURL);
+});
+test('recommendations cannot request confidential trial visit documents',()=>{
+  const raw=fixtureQuality(input);raw.requirements[0].next_action='Please provide the actual monitoring visit report.';
+  assert.ok(validateQuality(raw,catalogue,sources,'application').flags.some(f=>f.includes('confidential trial')));
 });

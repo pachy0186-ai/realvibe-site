@@ -36,7 +36,8 @@ export function gatewayDouble(input, packageId) {
   return {fetchImpl, requests,sourceLoader:async url=>({url,finalURL:url,status:'available',title:'QA employer source',text:'This is a controlled employer source excerpt for local tests only. No live research is represented by this fixture.',policyLinks:[]})};
 }
 export function fixtureQuality(input,packageId='application') {
-  const catalogue=evidenceCatalogue(input),jobs=catalogue.jobs.filter(j=>j.kind!=='context').slice(0,3);
+  const catalogue=evidenceCatalogue(input),mandatory=catalogue.jobs.filter(j=>j.kind==='mandatory');
+  const jobs=[...mandatory,...catalogue.jobs.filter(j=>j.kind!=='context'&&j.kind!=='mandatory')].slice(0,Math.max(3,mandatory.length));
   const references={job_ids:[jobs[0].id],candidate_ids:['C3']};
   return {target:{company:input.company,role:input.role},decision:{recommendation:'Clarify eligibility first',interpretation:'TEST DOUBLE ONLY: clarify evidence and precise role ownership.'},
     critical_findings:[1,2,3].map(i=>({heading:`Fixture finding ${i}`,interpretation:'Professional interpretation for deterministic workflow tests only.',references})),
