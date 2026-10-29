@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/api/:path*.js",
+      "destination": "/api/fmg-private-source",
+      "permanent": false
+    },
+    {
       "source": "/lib/:path*",
       "destination": "/api/fmg-private-source",
       "permanent": false
