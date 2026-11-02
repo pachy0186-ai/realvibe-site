@@ -17,13 +17,14 @@ document.getElementById('checkout-form').addEventListener('submit', async event 
 form.addEventListener('submit', async event => {
   event.preventDefault();if (busy || !form.reportValidity()) return;
   const action = event.submitter?.value || 'inspect';
+  const manualReport = {title: form.elements.manualTitle.value, body: form.elements.manualBody.value, sourceNote: form.elements.manualSourceNote.value};
   const headers = {'Content-Type': 'application/json', Authorization: `Bearer ${form.elements.access.value}`};
   const id = form.elements.orderId.value.trim();
   const review = {reviewer: form.elements.reviewer.value.trim(), note: form.elements.note.value.trim(), minutes: form.elements.minutes.value, checks: {}};
   for (const input of form.querySelectorAll('[data-review-check]')) review.checks[input.dataset.reviewCheck] = input.checked;
   busy = true;status.textContent = action === 'generate' ? 'Generating a draft. No delivery occurs before founder review.' : 'Processing reviewer action…';
   try {const response = await fetch(action === 'generate' ? '/api/analyze' : '/api/fmg-pilot-review', {
-    method: 'POST', headers, body: JSON.stringify(action === 'generate' ? {orderId: id} : {id, action, review})});
+    method: 'POST', headers, body: JSON.stringify(action === 'generate' ? {orderId: id} : {id, action, review, manualReport})});
     const data = await response.json();if (!response.ok) throw Error(data.error);
     status.textContent = `Action completed. Status: ${data.status || 'notifications captured for testing'}.`;
     document.getElementById('review-log').textContent = JSON.stringify({id: data.id, status: data.status,

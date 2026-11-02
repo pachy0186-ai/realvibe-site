@@ -1,5 +1,14 @@
 // Model content is rendered only as text; never insert model-generated HTML.
 export function renderReport(host, draft) {
+  if (draft?.engineVersion === 'manual-sandbox-1') {
+    host.replaceChildren();
+    for (const [tag, value] of [['h2', draft.manualReport.title], ['p', 'Fictional sandbox report — workflow QA only. Not human clinical approval.'], ['p', `${draft.manualReport.company} · ${draft.manualReport.role}`], ['div', draft.manualReport.body], ['h3', 'Sources and limitations'], ['p', draft.manualReport.sourceNote]]) {
+      const node = document.createElement(tag);node.textContent = value;
+      if (tag === 'div') node.style.whiteSpace = 'pre-wrap';
+      host.append(node);
+    }
+    return;
+  }
   if(['0.3.0-evidence-bound','0.4.0-evidence-first'].includes(draft?.engineVersion)) return renderEvidenceReport(host,draft);
   host.replaceChildren();
   const a = draft?.analysis; if (!a) return;

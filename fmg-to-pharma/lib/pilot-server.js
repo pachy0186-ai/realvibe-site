@@ -5,6 +5,7 @@ import {PACKAGES, ensure, newOrder, receiveIntake, recordPayment, attachDraft, a
 import {supabaseStore, updateOrder} from './pilot-store.js';
 import {runIntelligence} from './intelligence-engine.js';
 import {dispatchNotifications} from './pilot-mail.js';
+import {manualDraft} from './manual-report.js';
 
 export const hash = text => createHash('sha256').update(text).digest('hex');
 const equal = (a, b) => typeof a === 'string' && typeof b === 'string' && a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
@@ -98,6 +99,7 @@ export function createPilotService({env = process.env, store, stripe, generate =
           throw error;
         }
       }
+      if (action === 'submit_manual') return updateOrder(db, id, order => attachDraft(order, manualDraft(order, req.body.manualReport, now()), now()));
       if (action === 'approve') return updateOrder(db, id, order => approveReport(order, review, now()));
       if (action === 'deliver') return updateOrder(db, id, order => deliverReport(order, now()));
       if (action === 'feedback') return updateOrder(db, id, order => requestFeedback(order, now()));
