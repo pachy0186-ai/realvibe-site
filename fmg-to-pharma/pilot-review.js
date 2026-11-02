@@ -2,6 +2,19 @@ import {renderReport} from './report-renderer.js';
 const form = document.getElementById('review-form');
 const status = document.getElementById('review-status');
 let busy = false;
+function showStatus(message) {
+  status.textContent = message;
+  status.scrollIntoView({behavior: 'smooth', block: 'center'});
+}
+form.addEventListener('invalid', event => {
+  showStatus(`Check ${event.target.labels?.[0]?.textContent || 'the highlighted field'}: ${event.target.validationMessage}`);
+}, true);
+form.addEventListener('keydown', event => {
+  if (event.key === 'Enter' && event.target.tagName === 'INPUT') {
+    event.preventDefault();
+    showStatus('Choose an action button below. Enter does not save or approve a report.');
+  }
+});
 document.getElementById('checkout-form').addEventListener('submit', async event => {
   event.preventDefault();if (busy || !event.currentTarget.reportValidity()) return;
   const access = form.elements.access.value;
@@ -16,19 +29,26 @@ document.getElementById('checkout-form').addEventListener('submit', async event 
 });
 form.addEventListener('submit', async event => {
   event.preventDefault();if (busy || !form.reportValidity()) return;
-  const action = event.submitter?.value || 'inspect';
+  const action = event.submitter?.value;
+  if (!action) {showStatus('Choose an action button to continue.');return;}
   const manualReport = {title: form.elements.manualTitle.value, body: form.elements.manualBody.value, sourceNote: form.elements.manualSourceNote.value};
   const headers = {'Content-Type': 'application/json', Authorization: `Bearer ${form.elements.access.value}`};
   const id = form.elements.orderId.value.trim();
   const review = {reviewer: form.elements.reviewer.value.trim(), note: form.elements.note.value.trim(), minutes: form.elements.minutes.value, checks: {}};
   for (const input of form.querySelectorAll('[data-review-check]')) review.checks[input.dataset.reviewCheck] = input.checked;
-  busy = true;status.textContent = action === 'generate' ? 'Generating a draft. No delivery occurs before founder review.' : 'Processing reviewer action…';
+  if (action === 'approve') {
+    if (review.reviewer.length < 2) {showStatus('Enter a reviewer name before approving.');return;}
+    if (review.note.length < 10) {showStatus('Enter a review note of at least 10 characters before approving.');return;}
+    const incomplete = [...form.querySelectorAll('[data-review-check]')].filter(input => !input.checked);
+    if (incomplete.length) {showStatus(`Complete all seven review checks before approving (${incomplete.length} remaining).`);return;}
+  }
+  busy = true;showStatus(action === 'generate' ? 'Generating a draft. No delivery occurs before founder review.' : 'Processing reviewer action…');
   try {const response = await fetch(action === 'generate' ? '/api/analyze' : '/api/fmg-pilot-review', {
     method: 'POST', headers, body: JSON.stringify(action === 'generate' ? {orderId: id} : {id, action, review, manualReport})});
     const data = await response.json();if (!response.ok) throw Error(data.error);
-    status.textContent = `Action completed. Status: ${data.status || 'notifications captured for testing'}.`;
+    showStatus(action === 'submit_manual' ? 'Manual draft saved. Review the report below, then complete the review checks before approving.' : `Action completed. Status: ${data.status || 'notifications captured for testing'}.`);
     document.getElementById('review-log').textContent = JSON.stringify({id: data.id, status: data.status,
       flags: data.draft?.qualityFlags, telemetry: data.draft?.telemetry, review: data.review, notifications: data.notifications}, null, 2);
     if (data.draft) renderReport(document.getElementById('review-report'), data.draft);
-  } catch (error) {status.textContent = error.message || 'Reviewer action failed.';} finally {busy = false;}
+  } catch (error) {showStatus(error.message || 'Reviewer action failed.');} finally {busy = false;}
 });
