@@ -2,9 +2,10 @@ import nodemailer from 'nodemailer';
 import {randomUUID, createHash} from 'node:crypto';
 import {ensure, notification} from './pilot-domain.js';
 import {updateOrder} from './pilot-store.js';
+import {gmailTransport} from './gmail-oauth.js';
 
 export function smtpTransport(env) {
-  ensure(env.FMG_NOTIFICATION_MODE === 'smtp-test' && env.FMG_EMAIL_TEST_APPROVED === 'true', 'External test email is not approved.');
+  ensure(['smtp-test','gmail-test'].includes(env.FMG_NOTIFICATION_MODE) && env.FMG_EMAIL_TEST_APPROVED === 'true', 'External test email is not approved.');
   const port = Number(env.FMG_SMTP_PORT || 465);
   ensure(env.FMG_SMTP_HOST && [465, 587].includes(port) && env.FMG_SMTP_USER && env.FMG_SMTP_PASSWORD, 'Secure SMTP is not configured.');
   return nodemailer.createTransport({host: env.FMG_SMTP_HOST, port, secure: port === 465, requireTLS: true,
@@ -14,10 +15,10 @@ export function smtpTransport(env) {
 // A durable lease prevents concurrent workers from sending the same pending entry.
 // SMTP is at-least-once: a crash after acceptance but before recording success can duplicate mail.
 export async function dispatchNotifications(store, id, {env, transport, now = () => new Date().toISOString()} = {}) {
-  ensure(env.FMG_NOTIFICATION_MODE === 'smtp-test' && env.FMG_EMAIL_TEST_APPROVED === 'true', 'External test email is not approved.');
+  ensure(['smtp-test','gmail-test'].includes(env.FMG_NOTIFICATION_MODE) && env.FMG_EMAIL_TEST_APPROVED === 'true', 'External test email is not approved.');
   const allowed = String(env.FMG_EMAIL_TEST_RECIPIENTS || '').split(',').map(v => v.trim()).filter(Boolean);
   ensure(allowed.length && env.FMG_EMAIL_FROM && env.FMG_FOUNDER_EMAIL, 'Approved test recipients and sender are required.');
-  const sender = transport || smtpTransport(env);
+  const sender = transport || (env.FMG_NOTIFICATION_MODE === 'gmail-test' ? gmailTransport(env) : smtpTransport(env));
   const worker = randomUUID(); const claimed = [];
   await updateOrder(store, id, order => {
     claimed.length = 0;

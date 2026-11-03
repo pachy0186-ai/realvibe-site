@@ -28,9 +28,20 @@ document.getElementById('checkout-form').addEventListener('submit', async event 
   } catch (error) {status.textContent = error.message || 'Sandbox checkout is unavailable.';} finally {busy = false;}
 });
 form.addEventListener('submit', async event => {
-  event.preventDefault();if (busy || !form.reportValidity()) return;
+  event.preventDefault();if (busy) return;
   const action = event.submitter?.value;
   if (!action) {showStatus('Choose an action button to continue.');return;}
+  if (action === 'authorize_gmail') {
+    if (!form.elements.access.reportValidity()) return;
+    try {
+      const response = await fetch('/api/fmg-gmail-oauth',{method:'POST',headers:{Authorization:`Bearer ${form.elements.access.value}`}});
+      const result = await response.json();
+      if(!response.ok || new URL(result.url).origin !== 'https://accounts.google.com') throw Error('Gmail authorization could not start.');
+      location.assign(result.url);
+    } catch {showStatus('Gmail authorization could not start. Check reviewer access and OAuth configuration.');}
+    return;
+  }
+  if (!form.reportValidity()) return;
   const manualReport = {title: form.elements.manualTitle.value, body: form.elements.manualBody.value, sourceNote: form.elements.manualSourceNote.value};
   const headers = {'Content-Type': 'application/json', Authorization: `Bearer ${form.elements.access.value}`};
   const id = form.elements.orderId.value.trim();
