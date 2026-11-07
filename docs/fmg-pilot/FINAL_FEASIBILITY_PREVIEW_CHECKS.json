@@ -1,0 +1,131 @@
+{
+  "preview": "https://fmg-to-pharma-ntp3ia35j-pachy0186-ais-projects.vercel.app",
+  "deploymentId": "dpl_2n9B9Rt8xV91C8XxSHGuiiTD8JJ6",
+  "codeCommit": "5282da6c8588f691d18ac8c11c1580e34ab023ab",
+  "generationCommit": "aef896c78e29b9e3d1790fe8a485c10cf244ff0a",
+  "checkedAt": "2026-10-29T12:00:46.471Z",
+  "automatedTests": {
+    "passed": 50,
+    "failed": 0
+  },
+  "projectSettingsUpdatedAtUnchanged": true,
+  "checks": [
+    {
+      "path": "/",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "path": "/sample-report",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "path": "/reality-check",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "path": "/api/fmg-preview-qa?view=reports",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "path": "/logo.png",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "path": "/report-renderer.js",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "path": "/api/fmg-pilot",
+      "expected": 503,
+      "actual": 503,
+      "passed": true
+    },
+    {
+      "path": "/api/fmg-pilot.js",
+      "expected": 404,
+      "actual": 404,
+      "passed": true
+    },
+    {
+      "path": "/api/analyze",
+      "expected": 405,
+      "actual": 405,
+      "passed": true
+    },
+    {
+      "path": "/api/fmg-pilot-review",
+      "expected": 405,
+      "actual": 405,
+      "passed": true
+    },
+    {
+      "path": "/api/fmg-pilot-checkout",
+      "expected": 405,
+      "actual": 405,
+      "passed": true
+    },
+    {
+      "path": "/lib/feasibility-run.mjs",
+      "expected": 404,
+      "actual": 404,
+      "passed": true
+    },
+    {
+      "path": "/.env.example",
+      "expected": 404,
+      "actual": 404,
+      "passed": true
+    },
+    {
+      "path": "/guides/seven-day-career-fit-plan.html",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "path": "/guides/clinical-research-pharma-career-paths-for-fmgs-imgs.html",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Current evidence-first report bundle and human gate served",
+      "passed": true
+    },
+    {
+      "check": "Current renderer supports v0.4 and pending human review",
+      "passed": true
+    },
+    {
+      "check": "Correct seven-day YouTube embed",
+      "passed": true
+    },
+    {
+      "check": "Correct ten-paths YouTube embed",
+      "passed": true
+    },
+    {
+      "check": "Pilot orders remain closed with no-store",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "notes": [
+    "GET requests only. No model generation, order writes, lead changes or communications during these deployed checks.",
+    "Two early probes used nonexistent /api/fmg-pilot-config and /api/fmg-pilot-order routes and returned 404; actual configured /api/fmg-pilot route was then verified closed (503).",
+    "No fresh browser viewport/screenshot checks in this sprint; native browser automation was unavailable. Static report rendering executed and both outputs include the real embedded logo, viewport metadata, wrapping styles and complete requirement register. Prior viewport evidence applies only to unchanged customer pages.",
+    "Actual generation and source checks ran in the explicit preview build; runtime dispatch is covered with a provider double. An unattended customer workflow is deliberately closed."
+  ]
+}

@@ -13,12 +13,8 @@ function getSupabaseConfig() {
 function logFetchError(prefix, error) {
   const cause = error?.cause || {};
   console.error(prefix, {
-    message: error?.message || String(error),
     name: error?.name,
     causeCode: cause?.code,
-    causeMessage: cause?.message,
-    syscall: cause?.syscall,
-    hostname: cause?.hostname,
   });
 }
 
@@ -42,7 +38,12 @@ export default async function handler(req, res) {
   }
 
   try {
-    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    let body;
+    try {
+      body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    } catch {
+      return res.status(400).json({ error: "Invalid assessment payload." });
+    }
     const serialized = JSON.stringify(body || {});
 
     if (Buffer.byteLength(serialized, "utf8") > MAX_BODY_BYTES) {
@@ -81,8 +82,8 @@ export default async function handler(req, res) {
     });
 
     if (!upstream.ok) {
-      const detail = await upstream.text();
-      console.error("FMG Reality Check Supabase insert failed", upstream.status, detail.slice(0, 500));
+      // Upstream errors can contain submitted values. Log status only.
+      console.error("FMG Reality Check Supabase insert failed", upstream.status);
       return res.status(502).json({ error: "Unable to save response." });
     }
 

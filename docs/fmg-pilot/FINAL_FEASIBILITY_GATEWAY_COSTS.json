@@ -1,0 +1,74 @@
+{
+  "assignment": "final-feasibility-20261029",
+  "generationCommit": "aef896c78e29b9e3d1790fe8a485c10cf244ff0a",
+  "reportCommit": "5282da6c8588f691d18ac8c11c1580e34ab023ab",
+  "modelCalls": 4,
+  "costs": [
+    {
+      "case": "CRA",
+      "stage": "recommendation_ranking",
+      "id": "gen_01M63QZMFVS83C1YN0SJHPX1EC",
+      "status": 200,
+      "costUSD": 0.000923,
+      "model": "openai/gpt-5-mini",
+      "latencyMs": 4483,
+      "inputTokens": 1740,
+      "completionTokens": 52,
+      "reasoningTokens": 192,
+      "cachedTokens": 0,
+      "webSearchCalls": 0
+    },
+    {
+      "case": "CRA",
+      "stage": "baseline",
+      "id": "gen_01M63QZRXQQ90FFCNYTCR1G2M4",
+      "status": 200,
+      "costUSD": 0.003848,
+      "model": "openai/gpt-5-mini",
+      "latencyMs": 24576,
+      "inputTokens": 3408,
+      "completionTokens": 1434,
+      "reasoningTokens": 64,
+      "cachedTokens": 0,
+      "webSearchCalls": 0
+    },
+    {
+      "case": "CTM",
+      "stage": "recommendation_ranking",
+      "id": "gen_01M63R0J3BHP237ANZEGHR8S3G",
+      "status": 200,
+      "costUSD": 0.001586,
+      "model": "openai/gpt-5-mini",
+      "latencyMs": 4603,
+      "inputTokens": 2416,
+      "completionTokens": 107,
+      "reasoningTokens": 384,
+      "cachedTokens": 0,
+      "webSearchCalls": 0
+    },
+    {
+      "case": "CTM",
+      "stage": "baseline",
+      "id": "gen_01M63R0PMEAT1M5XYJM70M8Q5G",
+      "status": 200,
+      "costUSD": 0.003781,
+      "model": "openai/gpt-5-mini",
+      "latencyMs": 12024,
+      "inputTokens": 1948,
+      "completionTokens": 1583,
+      "reasoningTokens": 64,
+      "cachedTokens": 0,
+      "webSearchCalls": 0
+    }
+  ],
+  "totalUSD": 0.010138,
+  "credits": {
+    "status": 200,
+    "data": {
+      "balance": "4.3183404",
+      "total_used": "0.6816596"
+    }
+  },
+  "paidCreditsPurchased": 0,
+  "retries": 0
+}
