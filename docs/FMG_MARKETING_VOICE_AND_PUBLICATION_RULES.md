@@ -21,15 +21,15 @@ Effective 2026-11-07. Owner instruction. Applies to all future FMG to Pharma soc
 - Written public-source examples must distinguish known source facts, justified inference, and unknowns. No invented employer practices.
 
 ## CTA / platform routing
-- Public Facebook Page and FMG to Pharma LinkedIn company-page posts should use a primary website CTA to https://fmg-to-pharma.vercel.app/ and a secondary invitation to visit/subscribe at https://www.youtube.com/@FMGtoPharma, when appropriate and permitted by platform/community rules.
+- FMG to Pharma public Facebook Page posts should use a primary website CTA to https://fmg-to-pharma.vercel.app/ and a secondary invitation to visit/subscribe at https://www.youtube.com/@FMGtoPharma, when appropriate and permitted by platform/community rules.
 - Use safe aggregate UTM labels, never user-specific IDs or PII. Track clicks and genuine inquiries, not just views or follows.
 - Whenever a product or offer is promoted, ensure the same offer, scope and availability are visible on a **verified live** web page before automatic publication.
 - Facebook Groups are NOT the Facebook Page; group participation is manual/moderator-compliant, not bulk automated promotion.
-- LinkedIn personal account is different from the business page; do not auto-post to a personal career profile without specific permission.
-- Check channel connection status in Metricool (brand 7777842). Never assume LinkedIn is linked because Facebook/YouTube are.
+- **LinkedIn is intentionally out of scope starting November 7, 2026**: connecting the company page would require upgrading Metricool. No upgrade, billing, LinkedIn posting, or connection reminder; revisit only if the owner explicitly asks. The owner's personal LinkedIn remains separate and untouched.
+- Check the free-plan Facebook and YouTube connections in Metricool brand 7777842; avoid requiring additional software.
 
 ## Posting gates
-- Owner authorized automatic Facebook Page *text* posts on 2026-11-07, provided the content complies with these rules and the live website reflects the offer. LinkedIn company-page automatic posts may begin only after the company page is connected and the same checks pass.
+- Owner authorized automatic Facebook Page *text* posts on 2026-11-07, provided the content complies with these rules and the live website reflects the offer. Do not publish to LinkedIn without a new explicit policy change. Target at most two high-value Facebook Page text posts weekly, avoiding duplicate scheduled content.
 - Every video/reel/Short needs the *exact rendered video* reviewed and approved before publication. Respect the prior November quality incident; preserve narration-to-visual alignment and real logo.
 - Never activate payments, send mass unsolicited outreach, publish any unreviewed video, or alter lead records.
 - Never mistake a draft or scheduled item for a live post. Confirm delivery and destination link in provider records after the scheduled time.
@@ -38,3 +38,10 @@ Effective 2026-11-07. Owner instruction. Applies to all future FMG to Pharma soc
 ## Video schedule
 - No new video is considered scheduled until Metricool/YouTube shows an actual scheduled record.
 - Tentative editorial target: one carefully QA'd educational Short weekly, initially an evidence-based comparison of CRA/CTM job requirements or interview story evidence. Publish only when exact file passes audio/visual and rights checks and owner approves it.
+
+## Scheduled Facebook calendar verified November 7, 2026
+- Nov 9 09:00 ET: explain your experience; Metricool id 420027036
+- Nov 12 09:00 ET: three-column evidence map; Metricool id 420032460
+- Nov 16 09:00 ET: fit before résumé edits; Metricool id 420360319
+- Nov 19 09:00 ET: certification vs experience gaps; Metricool id 420360339
+- All four have draft=false and autoPublish=true. They are **scheduled**, not independently confirmed as published. Do not duplicate. Every item includes website and YouTube CTA. Verify actual provider delivery after each date.
