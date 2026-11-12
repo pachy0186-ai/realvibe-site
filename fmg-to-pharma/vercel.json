@@ -138,6 +138,14 @@
   ],
   "rewrites": [
     {
+      "source": "/toolkit-sample",
+      "destination": "/toolkit-sample.html"
+    },
+    {
+      "source": "/toolkit",
+      "destination": "/toolkit.html"
+    },
+    {
       "source": "/job-intelligence",
       "destination": "/job-intelligence.html"
     },
