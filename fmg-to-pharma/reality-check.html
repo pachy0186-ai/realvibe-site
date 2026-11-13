@@ -93,7 +93,7 @@
       p.steps.forEach((s,i)=>{const li=document.createElement("li");li.innerHTML=`<span class="step-dot">${i+1}</span><span>${s}</span>`;ol.appendChild(li)});
       const box=$("fitBox");
       box.className="fit-box"+(state.researchFit==="core"?" core":"");
-      box.innerHTML=state.researchFit==="core"?`<div class="eyebrow">Explore the free career toolkit</div><h4>Want a practical next step?</h4><p>I created a self-paced career toolkit for U.S.-based, work-authorized FMGs who are seriously considering a career in clinical research or pharma.</p><p>During the call, we’ll focus on:</p><ul><li>2–3 realistic role directions based on your background</li><li>the biggest gap or bottleneck I see</li><li>what I would prioritize over the next 60–90 days</li></ul><a class="roadmap-link" href="/toolkit-sample.html">Read a free career toolkit excerpt</a>`:"";
+      box.innerHTML=state.researchFit==="core"?`<div class="eyebrow">Explore the free career toolkit</div><h4>Want a practical next step?</h4><p>I created a self-paced career toolkit for U.S.-based, work-authorized FMGs who are seriously considering a career in clinical research or pharma.</p><p>In the self-paced toolkit, you'll work through:</p><ul><li>2–3 realistic role directions based on your background</li><li>the biggest gap or bottleneck I see</li><li>what I would prioritize over the next 60–90 days</li></ul><a class="roadmap-link" href="/toolkit-sample.html">Read a free career toolkit excerpt</a>`:"";
       box.querySelector('.roadmap-link')?.addEventListener('click',()=>trackFmgEvent('toolkit_sample_clicked',{result_pattern:state.patternKey}));
       setScreen("resultScreen");
       trackFmgEvent('reality_check_completed',{result_pattern:state.patternKey,research_fit:state.researchFit});
