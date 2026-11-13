@@ -1,5 +1,5 @@
 # FMG to Pharma — Product completion and cross-role acceptance gate
-Updated: November 12, 2026. PRIVATE. Development branch only.
+Updated: November 13, 2026. PRIVATE. Development branch only.
 
 ## Shared owner-independent execution
 **CRO role:** confirm target buyer, scope, pricing economics, source quality, real deliverable existence, legal/technical launch gates and evidence of buying behavior. Review copywriter changes on the next run and resolve factual/commercial conflicts.
@@ -16,12 +16,12 @@ Updated: November 12, 2026. PRIVATE. Development branch only.
 - No verified payment-to-download end-to-end test. No verified product sales.
 
 ## Product acceptance checklist
-- [ ] Recover and independently inspect the **existing original 21-page guide PDF** (do not author a replacement merely because it is absent from the ZIP).
-- [ ] Recover and independently inspect the **existing original 18-page workbook PDF**; the earlier editorial inspection reported **no interactive form fields**, so advertise as printable/PDF-annotation-friendly only.
-- [ ] Ensure day-by-day sequence: role families; hard eligibility gates; posting evidence; experience inventory; truthful résumé/LinkedIn; networking/interview; 30-day plan.
-- [ ] Add at least one completed, explicitly fictional job-posting fit example and a reproducible decision rubric.
-- [ ] Verify cited career/credential claims with primary sources and dated references; avoid employer hiring guarantees.
-- [ ] Export final PDF files; inspect actual page count, text extraction, readability, layout and branding.
+- [x] Recover and independently inspect the **existing original 21-page guide PDF** (retained; corrected reference links in final edition).
+- [x] Recover and independently inspect the **existing original 18-page workbook PDF**; it remains printable/PDF-annotation-friendly, not an interactive form.
+- [x] Ensure day-by-day sequence: role families; hard eligibility gates; posting evidence; experience inventory; truthful résumé/LinkedIn; networking/interview; 30-day plan.
+- [x] Verify included fictional job-posting example and five-factor role-fit planning rubric; no hiring-probability claim.
+- [x] Recheck principal career, certification, GCP, ATS and AI recruitment claims against current official sources, November 13, 2026; no employer hiring guarantees.
+- [x] Export final 21/18/5-page PDFs; verify extraction, pages, hyperlinks, branding and selected rendered layout.
 - [ ] Connect the actual five-page PDF sample and verify successful download.
 - [ ] Confirm paid PDF secure delivery is restricted to verified orders.
 - [ ] Test successful payment, failed payment, refunds, duplicate webhook, email delivery and support path in test mode.
@@ -33,10 +33,10 @@ Updated: November 12, 2026. PRIVATE. Development branch only.
 Buyer: U.S.-based foreign-trained physicians with little/no U.S. research operations experience exploring first research role. Promise: a practical seven-session plan and application assets, **not a job**. Proposed $49 one-time, not active. Self-paced, no coaching or job placement. Never sell absent verified full PDFs.
 
 ## Current blocking priority
-Recover the previously created original branded PDFs from project conversation files and reconcile the November 12 editorial QA report. Do **not** regenerate the manuscripts from scratch. Apply only verified page-specific corrections to versioned private copies; then connect the real five-page PDF sample and test it, followed by payment fulfillment verification. Maintain a factual evidence log and commit IDs on each run.
+Editorial file recovery and version reconciliation are **RESOLVED**. The next task is technical: provide accessible *public* delivery of only the free corrected five-page sample, keep paid guide/workbook files private, and test Stripe payment-verified delivery and terms. No extra manuscript generation. Review the November 13 final private Library folder and PDF hashes below before using any file.
 
 ## Release decision
-**HOLD** — original PDF page counts were reported verified in the November 12 project review, but repository-accessible final corrected files and tested paid fulfillment are not verified. This is a quality gate, not a request to stop private development.
+**EDITORIAL SOURCE READY / COMMERCIAL RELEASE HOLD.** The three final PDFs exist and are privately archived. Website preview is READY; the five-page sample is readable as an integrated HTML excerpt, but PDF binary download is not yet hosted. Paid delivery, commerce-eligible hosting, tax/refund/support terms, payment test and owner launch approval remain required.
 
 ## CRO handoff — November 13, 2026
 - **Concrete correction:** reconciled stale repository checklist against the November 12 original-PDF inspection and removed instructions to recreate completed manuscripts.
@@ -51,3 +51,16 @@ Recover the previously created original branded PDFs from project conversation f
 - Reviewed dev-branch `toolkit-sample.html`: clearly labels selected Days 1/4 excerpts, prelaunch status, no fillable workbook promise, and no live checkout. No change necessary to this page based on accessible source.
 - Editorial decision: **HOLD**. Existing November 12 report is not a substitute for access to PDF bytes. Do not issue an internal pass or claim corrected PDFs.
 - Next authorized work: obtain accessible raw PDF assets through supported project-file access, verify `(1)` versus `(2)` versions, then make only page-specific corrections. Keep public publication and payments owner-gated.
+
+
+## FINAL EDITORIAL AND SITE INTEGRATION UPDATE — November 13, 2026 (supersedes obsolete access blockers above)
+
+- **Source-of-truth:** Accessible branded (1) original PDFs; (1) and (2) full extracted text matches for all three; exact (2) bytes remain inaccessible. Do not regenerate manuscripts.
+- **Final private Library folder:** `/FMG to Pharma/Final Editorial 2026-11-13/` with three final PDFs and final editorial QA.
+- **Final guide:** `FMG_to_Pharma_7_Day_Career_Launch_Guide_FINAL_2026-11-13.pdf` — 21 pages, SHA-256 `f9655a388ef7528db9dfa43f1cad6273e94c2cbbd821e224e65ff4d16e4c82c9`. Verified official SOCRA link corrected and Indeed help link localized.
+- **Final workbook:** `FMG_to_Pharma_Workbook_and_Templates_FINAL_2026-11-13.pdf` — 18 pages, SHA-256 `413a223c6a96c2a94ec160554d5c567fcc62b429794d3fb3b71c674940a0b160`. Unchanged body; printable/PDF annotation-friendly.
+- **Final free sample:** `FMG_to_Pharma_Free_Sample_FINAL_2026-11-13.pdf` — 5 pages, SHA-256 `b18bfa79a4ddce5436e524fa2c371909ea75d91699ae180589c9cd19fa7ff060`. Page-4 label collision fixed.
+- **Site changes:** Branch `codex/fmg-toolkit-final-editorial-20261113` updates homepage, toolkit, complete sample as readable HTML, founder, seven-day process, FAQ, free-guides nav and legacy pilot/archive notices. Legacy operational pilot code and leads preserved. Preview Vercel deployment `dpl_Dtx8cLvGeEF7tNbBTiAJqGH2J4iZ` built READY from commit `2241e993c566fd21513a2b906be871f93572fcb1`.
+- **NO CLAIM OF PUBLIC PDF EMBEDDING:** Web preview provides inline HTML sample, not a live free sample PDF download. Neither paid PDF is accessible through a public URL. GitHub and Vercel changes are preview-only; production unchanged.
+- **Release gates:** public sample binary upload/test; commercially permitted hosting (Hobby is noncommercial); authenticated test-mode Stripe purchase + webhook + protected PDF downloads; privacy/refund/tax/support language; accessibility/mobile browser QA; specific owner approval before live payments or spend.
+- **Current decision:** Editorial candidate READY. Public commercial release remains **HOLD**, for concrete technical/compliance reasons—not content access.
