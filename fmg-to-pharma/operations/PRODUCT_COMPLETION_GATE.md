@@ -10,14 +10,14 @@ Updated: November 12, 2026. PRIVATE. Development branch only.
 
 ## Verified asset inventory
 - Uploaded launch package includes a 5-page free-sample PDF (site/assets/free-sample-preview.pdf), HTML toolkit page, branding asset and marketing/governance drafts.
-- The complete 21-page paid guide and 18-page workbook are **not in that uploaded ZIP**. The CRO blueprint states they exist, but that statement is not a verified file inspection.
+- The complete paid PDFs are **not in that uploaded ZIP**. A November 12 editorial inspection in the project conversation reported verified original PDFs of 21 pages (guide), 18 pages (workbook), and 5 pages (sample), with an editorial QA PDF and ZIP package. The repository deployment does not yet contain these original paid PDFs. The next integration run must retrieve the original files and independently verify checksums/page counts before attaching them to fulfillment. Absence from the launch ZIP does **not** mean the products were never created.
 - Current website Day 1 HTML excerpt is not the full PDF sample. Never conflate them.
 - Existing public homepage previously promoted obsolete CRA/CTM pilot. Development branch homepage, FAQ and Contact were revised; remaining pages need audit.
 - No verified payment-to-download end-to-end test. No verified product sales.
 
 ## Product acceptance checklist
-- [ ] Locate or author the **actual** complete guide manuscript.
-- [ ] Locate or author the **actual** complete workbook manuscript with fillable/printable activities.
+- [ ] Recover and independently inspect the **existing original 21-page guide PDF** (do not author a replacement merely because it is absent from the ZIP).
+- [ ] Recover and independently inspect the **existing original 18-page workbook PDF**; the earlier editorial inspection reported **no interactive form fields**, so advertise as printable/PDF-annotation-friendly only.
 - [ ] Ensure day-by-day sequence: role families; hard eligibility gates; posting evidence; experience inventory; truthful résumé/LinkedIn; networking/interview; 30-day plan.
 - [ ] Add at least one completed, explicitly fictional job-posting fit example and a reproducible decision rubric.
 - [ ] Verify cited career/credential claims with primary sources and dated references; avoid employer hiring guarantees.
@@ -33,7 +33,14 @@ Updated: November 12, 2026. PRIVATE. Development branch only.
 Buyer: U.S.-based foreign-trained physicians with little/no U.S. research operations experience exploring first research role. Promise: a practical seven-session plan and application assets, **not a job**. Proposed $49 one-time, not active. Self-paced, no coaching or job placement. Never sell absent verified full PDFs.
 
 ## Current blocking priority
-Find complete manuscripts first. If absent, build **substantive original drafts** and mark them draft; do not pretend 21 and 18 final pages exist. Next, upload and connect real sample PDF, then finish payment verification. Maintain a factual evidence log and commit IDs on each run.
+Recover the previously created original branded PDFs from project conversation files and reconcile the November 12 editorial QA report. Do **not** regenerate the manuscripts from scratch. Apply only verified page-specific corrections to versioned private copies; then connect the real five-page PDF sample and test it, followed by payment fulfillment verification. Maintain a factual evidence log and commit IDs on each run.
 
 ## Release decision
-**HOLD** — no verified full paid deliverables or tested paid fulfillment. This is a quality gate, not a request to stop private development.
+**HOLD** — original PDF page counts were reported verified in the November 12 project review, but repository-accessible final corrected files and tested paid fulfillment are not verified. This is a quality gate, not a request to stop private development.
+
+## CRO handoff — November 13, 2026
+- **Concrete correction:** reconciled stale repository checklist against the November 12 original-PDF inspection and removed instructions to recreate completed manuscripts.
+- **Editorial issue:** site sample page truthfully says the five-page PDF is not linked, but `site/assets/free-sample-preview.pdf` is listed in the launch-package inventory. Next technical pass must inspect that actual asset, confirm it matches the original five-page branded preview, then add a working download link. Do not assume identical files from names alone.
+- **Claims QA:** the 7 days are self-paced learning sessions, not a hiring timeline; the workbook is not interactive-fillable. Proposed $49 price is not a live checkout.
+- **Independent review:** no new final-PDF byte-level review performed in this run; the prior editorial report is evidence of a past inspection, not proof that corrections have been applied.
+- **Release decision:** HOLD until the original PDFs are recovered into an editable workspace, the changes are verified, sample download works, and test-mode checkout/delivery, legal terms and owner approval pass.
