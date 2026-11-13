@@ -44,3 +44,10 @@ Recover the previously created original branded PDFs from project conversation f
 - **Claims QA:** the 7 days are self-paced learning sessions, not a hiring timeline; the workbook is not interactive-fillable. Proposed $49 price is not a live checkout.
 - **Independent review:** no new final-PDF byte-level review performed in this run; the prior editorial report is evidence of a past inspection, not proof that corrections have been applied.
 - **Release decision:** HOLD until the original PDFs are recovered into an editable workspace, the changes are verified, sample download works, and test-mode checkout/delivery, legal terms and owner approval pass.
+
+## Editorial run — November 13, 2026, 04:00 ET
+- Located the exact original `(1).pdf` files in the FMG to Pharma Project Library (21-page guide, 18-page workbook, 5-page sample) by metadata; additionally discovered `(2).pdf` variants. Do not assume newer suffix means editorial approval or identical content.
+- Attempted raw-byte materialization for all three original `(1)` PDFs using their actual Library file IDs. **All three failed** with `This Project file does not have an authorized raw-byte materialization path.` This is a persistent access-control blocker, not evidence that PDFs are absent. No PDF edits or independent page-by-page verification occurred in this run.
+- Reviewed dev-branch `toolkit-sample.html`: clearly labels selected Days 1/4 excerpts, prelaunch status, no fillable workbook promise, and no live checkout. No change necessary to this page based on accessible source.
+- Editorial decision: **HOLD**. Existing November 12 report is not a substitute for access to PDF bytes. Do not issue an internal pass or claim corrected PDFs.
+- Next authorized work: obtain accessible raw PDF assets through supported project-file access, verify `(1)` versus `(2)` versions, then make only page-specific corrections. Keep public publication and payments owner-gated.
