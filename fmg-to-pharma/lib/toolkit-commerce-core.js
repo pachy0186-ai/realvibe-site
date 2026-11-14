@@ -34,3 +34,19 @@ export function allowedDoc(key) {
 export function validCheckoutSessionId(value) {
   return typeof value === "string" && /^cs_(?:test_)?[A-Za-z0-9_]{15,200}$/.test(value);
 }
+
+export function safeSignedStorageUrl(raw,baseUrl,bucket){
+  if(typeof raw!=="string"||!raw) return null;
+  try {
+    const base=new URL(baseUrl);
+    if(base.protocol!=="https:")return null;
+    let dest;
+    if(raw.startsWith("/object/sign/"))dest=new URL("/storage/v1"+raw,base);
+    else if(raw.startsWith("/storage/v1/object/sign/"))dest=new URL(raw,base);
+    else if(raw.startsWith("https://"))dest=new URL(raw);
+    else return null;
+    const prefix="/storage/v1/object/sign/"+encodeURIComponent(bucket)+"/";
+    if(dest.origin!==base.origin||dest.protocol!=="https:"||!dest.pathname.startsWith(prefix)||!dest.searchParams.has("token"))return null;
+    return dest;
+  }catch{return null;}
+}
