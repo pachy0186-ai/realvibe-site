@@ -134,9 +134,18 @@
       "source": "/pilot-review.html",
       "destination": "/pilot-review",
       "permanent": true
+    },
+    {
+      "source": "/toolkit-access.html",
+      "destination": "/toolkit-access",
+      "permanent": true
     }
   ],
   "rewrites": [
+    {
+      "source": "/toolkit-access",
+      "destination": "/toolkit-access.html"
+    },
     {
       "source": "/toolkit-sample",
       "destination": "/toolkit-sample.html"
@@ -262,6 +271,23 @@
         {
           "key": "Cache-Control",
           "value": "no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/toolkit-access",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
         },
         {
           "key": "X-Robots-Tag",
