@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import {allowedDoc, isCheckoutReady, isPaidToolkitSession, validCheckoutSessionId} from "../lib/toolkit-commerce-core.js";
+import {allowedDoc, isCheckoutReady, isPaidToolkitSession, validCheckoutSessionId, safeSignedStorageUrl} from "../lib/toolkit-commerce-core.js";
 const BUCKET = "fmg-paid-toolkit";
 async function signedDownload(filename, env) {
   const base = new URL(env.SUPABASE_URL);
@@ -13,10 +13,9 @@ async function signedDownload(filename, env) {
   const body = await response.json();
   const path = body.signedURL || body.signedUrl;
   if (typeof path !== "string") throw new Error("Invalid storage response");
-  const target = new URL(path,base);
-  if (target.origin !== base.origin || target.protocol !== "https:" || !target.pathname.includes("/storage/v1/object/sign/")) {
-    throw new Error("Untrusted download destination");
-  }
+  const target = safeSignedStorageUrl(path,base.toString(),BUCKET);
+  if (!target) throw new Error("Untrusted download destination");
+  target.searchParams.set("download",filename);
   return target.toString();
 }
 export default async function handler(req,res) {
