@@ -44,6 +44,11 @@ export default async function handler(req,res){
     const email=session.customer_details?.email||session.customer_email;
     if(typeof email!=="string"||email.length>254||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
       return res.status(503).json({error:"Buyer email unavailable."});
+    // Never contact an arbitrary person when testing in a preview environment.
+    if(env.FMG_TOOLKIT_LIVE_MODE!=="true"){
+      const allow=(env.FMG_TOOLKIT_TEST_EMAIL_ALLOWLIST||"").split(",").map(v=>v.trim().toLowerCase()).filter(Boolean);
+      if(!allow.includes(email.toLowerCase()))return res.status(200).json({skipped_test_recipient:true});
+    }
     const key=encodeURIComponent(session.id);
     const row={stripe_session_id:session.id,stripe_payment_intent_id:typeof session.payment_intent==="string"?session.payment_intent:session.payment_intent?.id,buyer_email:email,paid_at:new Date().toISOString()};
     await dbRequest(env,"POST","?on_conflict=stripe_session_id",row);
