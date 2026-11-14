@@ -42,7 +42,7 @@ export default async function handler(req,res){
     const items=await stripe.checkout.sessions.listLineItems(session.id,{limit:10});
     if(!isPaidToolkitSession(session,items.data,env))return res.status(200).json({ignored:true});
     const email=session.customer_details?.email||session.customer_email;
-    if(typeof email!=="string"||email.length>254||!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email))
+    if(typeof email!=="string"||email.length>254||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
       return res.status(503).json({error:"Buyer email unavailable."});
     const key=encodeURIComponent(session.id);
     const row={stripe_session_id:session.id,stripe_payment_intent_id:typeof session.payment_intent==="string"?session.payment_intent:session.payment_intent?.id,buyer_email:email,paid_at:new Date().toISOString()};
@@ -52,7 +52,7 @@ export default async function handler(req,res){
     const link=receiptUrl(env,session.id);
     const transport=nodemailer.createTransport({host:env.FMG_SMTP_HOST,port:Number(env.FMG_SMTP_PORT||465),secure:Number(env.FMG_SMTP_PORT||465)===465,auth:{user:env.FMG_SMTP_USER,pass:env.FMG_SMTP_PASSWORD}});
     await transport.sendMail({from:env.FMG_EMAIL_FROM,to:email,subject:"Your FMG to Pharma 7-Day Career Launch Kit",
-      text:"Thank you for purchasing the FMG to Pharma career toolkit. Open your secure access page to download your guide and companion workbook:\\n"+link+"\\n\\nKeep this link private. If you have trouble accessing your files, reply to this email.\\n\\nFMG to Pharma — RealVibeAI LLC",replyTo:"fmgtopharma@gmail.com"});
+      text:"Thank you for purchasing the FMG to Pharma career toolkit. Open your secure access page to download your guide and companion workbook:\n"+link+"\n\nKeep this link private. If you have trouble accessing your files, reply to this email.\n\nFMG to Pharma — RealVibeAI LLC",replyTo:"fmgtopharma@gmail.com"});
     await dbRequest(env,"PATCH","?stripe_session_id=eq."+key,{email_sent_at:new Date().toISOString()});
     return res.status(200).json({fulfilled:true});
   }catch(error){console.error("FMG toolkit receipt error",error?.name||"Error");return res.status(503).json({error:"Fulfillment temporarily unavailable."});}
