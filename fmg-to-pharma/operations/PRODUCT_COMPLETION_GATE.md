@@ -110,3 +110,16 @@ Editorial file recovery and version reconciliation are **RESOLVED**. The next ta
 - Earlier statements that the supplied corrected PDF was not accessible or that the embedded copy was only an unmatched reconstruction are superseded. Do not regenerate or swap it again without a newer source file.
 - The remaining sample QA is outside-browser unauthenticated/mobile download HTTP testing. Source identity and GitHub file contents are confirmed; Vercel READY is not proof of browser delivery. PDF accessibility tagging remains absent; HTML text excerpt is the interim alternative.
 - Independent source audit reviewed [S01]-[S16] and produced one targeted reference-date correction candidate ([S14] Indeed Jul → Nov 2026) with all pages/links retained. Do not replace paid guide in storefront before full review.
+
+
+## Standing editorial publishing standard — November 15, 2026
+- Canonical closing of the founder story, to be preserved verbatim in customer-facing guide, sample, and website:
+  > “Residency is not your only professional path. But the right alternative career still has to be built on evidence, realistic requirements and work you are prepared to do.”
+  >
+  > — Patricia Mieses, MD, MSHS, CCRP
+- Keep the founder’s authentic voice and real professional background. Do not insert editorial phrases such as "credentials verified against the supplied CV," "employment chronology checked," or "no private CV contact details reproduced" into customer-facing copy.
+- CV verification, professional chronology, employer-independence checks, privacy redactions, permissions, plagiarism/source audits and technical QA belong in private editorial logs, not inside the founder story.
+- Any essential independence, education-not-advice, no-guarantee, or other legal notice belongs in an appropriate separately labeled section; keep it concise and accurate. Do not remove legitimately necessary disclosures from the product entirely.
+- Preserve original branded guide/workbook/sample, their pagination, source notes and design; apply only evidence-backed, targeted corrections. The workbook is printable/PDF-annotation-friendly, **not** an electronically fillable form.
+- A release requires inspection of the exact edited binary and browser-deployed artifact; do not infer approval from a prior agent’s status message. No untagged PDF may be described as PDF/UA compliant or fully accessible without verification; provide accessible alternate format when necessary.
+- **PRELAUNCH / HOLD** until external sample download, accessibility, complete source/copyright QA, and secure purchase-to-delivery tests are verified. Do not activate payments, publish to production, spend money or contact buyers without authorized release steps.
