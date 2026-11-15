@@ -103,3 +103,10 @@ Editorial file recovery and version reconciliation are **RESOLVED**. The next ta
 - **Scope clarifications:** [S16] Indeed AI Recruiter Questions are documented most directly on https://www.indeed.com/help/job-seekers/articles/42787723284749-about-ai-recruiter-questions . [S10] LinkedIn Recruiter is a sourcing tool, not a universal applicant tracking rejection system. [S09] Workday statement describes its own hiring.
 - Full source matrix and release limitations in conversation artifact `FMG_Source_and_Release_QA_2026-11-15.md`. This is an independent reference audit, not a copyright similarity or PDF/UA certification.
 - Sample development integration and Vercel READY state unchanged; external unauthenticated HTTP and iOS download QA still lack independent proof. Commercial release is HOLD due to these and remaining actual payment-delivery/provider setup, NOT because 13 sources are wholly unexamined.
+
+
+## November 15 exact sample identity reconciliation — confirmed
+- The raw five-page PDF attached with the November 15 editorial update was recovered into the working environment and checked byte-by-byte against the previously integrated sample. Both files are **565,385 bytes** with SHA-256 `077f0662825067dcc84713ecc6f540c13717634e5cb0f2808828b52c0fe3e47d`; exact-file discrepancy **resolved for the supplied corrected sample**.
+- Earlier statements that the supplied corrected PDF was not accessible or that the embedded copy was only an unmatched reconstruction are superseded. Do not regenerate or swap it again without a newer source file.
+- The remaining sample QA is outside-browser unauthenticated/mobile download HTTP testing. Source identity and GitHub file contents are confirmed; Vercel READY is not proof of browser delivery. PDF accessibility tagging remains absent; HTML text excerpt is the interim alternative.
+- Independent source audit reviewed [S01]-[S16] and produced one targeted reference-date correction candidate ([S14] Indeed Jul → Nov 2026) with all pages/links retained. Do not replace paid guide in storefront before full review.
