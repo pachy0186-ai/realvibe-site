@@ -97,23 +97,23 @@
     },
     {
       "source": "/services",
-      "destination": "/job-intelligence",
-      "permanent": false
+      "destination": "/toolkit",
+      "permanent": true
     },
     {
       "source": "/services.html",
-      "destination": "/job-intelligence",
-      "permanent": false
+      "destination": "/toolkit",
+      "permanent": true
     },
     {
       "source": "/pricing",
-      "destination": "/job-intelligence#packages",
-      "permanent": false
+      "destination": "/toolkit",
+      "permanent": true
     },
     {
       "source": "/pricing.html",
-      "destination": "/job-intelligence#packages",
-      "permanent": false
+      "destination": "/toolkit",
+      "permanent": true
     },
     {
       "source": "/resources",
@@ -138,6 +138,21 @@
     {
       "source": "/toolkit-access.html",
       "destination": "/toolkit-access",
+      "permanent": true
+    },
+    {
+      "source": "/toolkit.html",
+      "destination": "/toolkit",
+      "permanent": true
+    },
+    {
+      "source": "/toolkit-sample.html",
+      "destination": "/toolkit-sample",
+      "permanent": true
+    },
+    {
+      "source": "/guides/index.html",
+      "destination": "/guides/",
       "permanent": true
     }
   ],

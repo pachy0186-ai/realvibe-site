@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://fmg-to-pharma.vercel.app/</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://fmg-to-pharma.vercel.app/reality-check</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://fmg-to-pharma.vercel.app/guides/</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://fmg-to-pharma.vercel.app/guides/clinical-research-pharma-career-paths-for-fmgs-imgs.html</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://fmg-to-pharma.vercel.app/guides/what-can-you-do-with-a-foreign-medical-degree-in-the-usa</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://fmg-to-pharma.vercel.app/guides/beyond-crc-cra-clinical-research-career-paths-for-imgs.html</loc>
-    <lastmod>2026-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-<url><loc>https://fmg-to-pharma.vercel.app/job-intelligence</loc><lastmod>2026-10-27</lastmod></url>
-<url><loc>https://fmg-to-pharma.vercel.app/how-it-works</loc><lastmod>2026-10-27</lastmod></url>
-<url><loc>https://fmg-to-pharma.vercel.app/about</loc><lastmod>2026-10-27</lastmod></url>
-<url><loc>https://fmg-to-pharma.vercel.app/faq</loc><lastmod>2026-10-27</lastmod></url>
-<url><loc>https://fmg-to-pharma.vercel.app/contact</loc><lastmod>2026-10-27</lastmod></url>
-<url><loc>https://fmg-to-pharma.vercel.app/guides/seven-day-career-fit-plan.html</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fmg-to-pharma.vercel.app/toolkit</loc></url>
+  <url><loc>https://fmg-to-pharma.vercel.app/toolkit-sample</loc></url>
 </urlset>
